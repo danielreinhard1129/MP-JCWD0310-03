@@ -1,23 +1,21 @@
-import React from 'react';
-import Marquee from 'react-fast-marquee';
-import EventCard from './EventCard';
-import TestiCard from './TestiCard';
-import { Card } from './ui/card';
-import Image from 'next/image';
-import { CalendarDays, MapPin } from 'lucide-react';
-import { Button } from './ui/button';
-import { Avatar, AvatarImage } from './ui/avatar';
+import Marquee from "react-fast-marquee";
+import EventCard from "./EventCard";
 
 const Testi = () => {
   return (
-    <div className="p-4 h-[450px] bg-[#18181A] flex items-center mt-3 w-[390px]">
-      <div className="">
-        <h1 className="text-[#8A8A8A] text-[20px]">Latest events</h1>
-        <p className="text-[#8A8A8A] text-[11px] mb-2">
+    <div className="mx-auto mt-3 flex h-[450px] max-w-[390px] items-center bg-[#18181A] p-4 md:max-w-full">
+      <div className="mx-auto md:max-w-[1100px]">
+        <h1 className="text-[20px] text-[#8A8A8A]">Latest events</h1>
+        <p className="mb-2 text-[11px] text-[#8A8A8A]">
           "Explore diverse event categories, catering to every interest and
           occasion, ensuring something for everyone."
         </p>
-        <Marquee speed={50} className="flex gap-3 max-w-[350px]">
+        <Marquee
+          speed={50}
+          className="mx-auto flex max-w-[350px] gap-3 md:max-w-[1100px] "
+        >
+          <EventCard />
+          <EventCard />
           <EventCard />
         </Marquee>
       </div>
