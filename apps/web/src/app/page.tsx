@@ -9,6 +9,9 @@ export default function Home() {
       <h1 className="text-blue-600 font-bold ">Hello World!!!</h1>
       <h1 className="text-red-500 font-bold">Haloo</h1>
       <Button>Test</Button>
+      <Button>Test2222</Button>
+
+      
     </div>
   );
 }
