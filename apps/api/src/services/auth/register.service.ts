@@ -19,7 +19,11 @@ export const registerService = async (
     const hashedPassword = await hashPassword(password);
 
     const newUser = await prisma.user.create({
-      data: { ...body, password: hashedPassword },
+      data: {
+        ...body,
+        password: hashedPassword,
+        refferal_code: 'AVC8U8',
+      },
     });
 
     return {
