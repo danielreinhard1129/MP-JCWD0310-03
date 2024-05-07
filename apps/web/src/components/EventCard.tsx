@@ -1,35 +1,35 @@
-import React from 'react';
-import { Card, CardHeader } from './ui/card';
-import Image from 'next/image';
-import { CalendarDays, MapPin } from 'lucide-react';
-import { Button } from './ui/button';
+import React from "react";
+import { Card, CardHeader } from "./ui/card";
+import Image from "next/image";
+import { CalendarDays, MapPin } from "lucide-react";
+import { Button } from "./ui/button";
 
 const EventCard = () => {
   return (
-    <Card className="max-w-[500px] h-[360px] mx-auto border border-black p-2 gap-y-2">
+    <Card className="mx-auto h-[360px] max-w-[500px] gap-y-2 border border-black p-2">
       <Image
         src="/foodevent.jpg"
         alt="food"
         width={330}
         height={50}
-        className="mx-auto p-3 rounded-lg"
+        className="mx-auto rounded-lg p-3"
       />
       <div className="flex justify-between">
         <h1 className="font-semibold">Jakarta Music Event</h1>
-        <h1 className="font-medium text-sm bg-blue-600 p-[5px] rounded-xl text-white">
+        <h1 className="rounded-xl bg-blue-600 p-[5px] text-sm font-medium text-white">
           Music
         </h1>
       </div>
       <div className="flex gap-3">
         <CalendarDays size={20} />
-        <h3 className="font-semibold text-[15px]">04 Sept 2024</h3>
+        <h3 className="text-[15px] font-semibold">04 Sept 2024</h3>
       </div>
       <div className="flex gap-3">
         <MapPin size={20} />
-        <h3 className="font-bold text-[15px]">Jakarta, Indonesia</h3>
+        <h3 className="text-[15px] font-bold">Jakarta, Indonesia</h3>
       </div>
-      <div className="flex justify-between items-center">
-        <h1 className="font-bold text-[15px]">Rp. 150.000</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-[15px] font-bold">Rp. 150.000</h1>
         <Button>Buy tickets</Button>
       </div>
     </Card>
