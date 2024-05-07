@@ -7,7 +7,7 @@ import { Label } from './ui/label';
 
 interface FormInputProps {
   name: string;
-  label: string;
+  label?: string;
   placeholder: string;
   type: HTMLInputTypeAttribute;
   handleChange: FormikHandlers['handleChange'];
