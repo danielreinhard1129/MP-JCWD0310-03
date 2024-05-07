@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import prisma from '@/prisma';
+import { createEventsService } from '@/services/events/createEvent.service';
 
 export class SampleController {
   async getSampleData(req: Request, res: Response) {
@@ -22,13 +23,14 @@ export class SampleController {
     return res.status(200).send(sample);
   }
 
-  async createSampleData(req: Request, res: Response) {
-    const { name, code } = req.body;
+  async createSampleEvent(req: Request, res: Response, next:NextFunction) {
+    try {
+     const result = await createEventsService(req.body)
 
-    const newSampleData = await prisma.sample.create({
-      data: { name, code },
-    });
-
-    return res.status(201).send(newSampleData);
+    return res.status(201).send(result);
+    } catch (error) {
+      next(error)
+    }
+    
   }
 }
