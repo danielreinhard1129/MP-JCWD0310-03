@@ -1,85 +1,95 @@
 import { hashPassword } from '@/lib/bcrypt';
-import { generateRefferal } from '@/lib/generateRefferal';
+import { generateRefferalCode } from '@/lib/generateRefferalCode';
 import prisma from '@/prisma';
-import { Role as PrismaRole } from '@prisma/client';
+import { IUser } from '@/types/user.type';
 
-interface User {
-  username: string;
-  email: string;
-  password: string;
-  role: PrismaRole;
+interface IRegister
+  extends Pick<
+    IUser,
+    'username' | 'email' | 'password' | 'role' | 'refferal_code'
+  > {
   reff?: string;
 }
 
-export const registerService = async (body: User) => {
+export const registerService = async (body: IRegister) => {
   try {
-    const { email, password, reff, username, role } = body;
+    const { username, email, password, role, refferal_code, reff } = body;
 
-    const existingUser = await prisma.user.findFirst({
+    if (!username || !email || !password) throw new Error('Fields required!');
+
+    const userExist = await prisma.user.findFirst({
       where: {
         email: email,
       },
     });
 
-    if (existingUser) throw new Error('Email or user has already exist!');
+    if (userExist) throw new Error('Email or user already exist!');
 
     const hashedPassword = await hashPassword(password);
-    const { code } = generateRefferal();
 
+    // generate refferal code for user
+    const { code } = generateRefferalCode();
+
+    // sql transactions to make user, generate refferal code, points and refferal history
     const newUser = await prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
-          ...body,
+          username: username,
+          email: email,
           password: hashedPassword,
-          refferal_code: code,
-          role: role,
+          refferal: code,
+          role: 'CUSTOMER',
         },
       });
 
-      const refferalPoints = 10000;
-      const defaultPoints = 0;
+      const defaultPoint = 0;
+      const refferalPoint = 10000;
+      const pointExpiredDate = new Date();
+      pointExpiredDate.setMonth(pointExpiredDate.getMonth() + 3);
 
       if (reff) {
-        const findRefferalOwner = await prisma.user.findFirst({
+        const refferalOwner = await tx.user.findFirst({
           where: {
-            refferal_code: reff,
+            refferal: reff,
           },
         });
-        console.log(findRefferalOwner);
+        console.log(refferalOwner);
 
-        if (findRefferalOwner) {
-          await tx.points.updateMany({
-            where: {
-              userId: findRefferalOwner.id,
-            },
+        if (refferalOwner) {
+          await tx.point.updateMany({
+            where: { userId: refferalOwner.id },
             data: {
               total: {
-                increment: refferalPoints,
+                increment: refferalPoint,
               },
+              expiredAt: pointExpiredDate,
             },
           });
         }
-        const findPoints = await prisma.points.findFirst({
-          where: {
-            userId: findRefferalOwner?.id,
+
+        const discountRate = 10;
+        await tx.refferalHistory.create({
+          data: {
+            userId: user.id,
+            discount_rate: discountRate / 100,
+            expiredAt: pointExpiredDate,
           },
         });
-        console.log(findPoints);
       }
 
-      await tx.points.create({
+      await tx.point.create({
         data: {
           userId: user.id,
-          total: defaultPoints,
-          expiredAt: new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1),
-          ),
+          total: defaultPoint,
+          expiredAt: pointExpiredDate,
         },
       });
+
+      return user;
     });
 
     return {
-      message: 'Register success!',
+      message: 'register success',
       data: newUser,
     };
   } catch (error) {

@@ -1,31 +1,47 @@
+import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+
 export const Footer = () => {
   return (
-    <div className=" max-w-full bg-black p-4">
-      <div className="mx-auto md:max-w-[1100px]">
-        <h1 className="pb-4 text-xl font-bold text-white">Eventify.</h1>
-        <div className="grid grid-cols-3 text-sm text-[#9F9FA8]">
-          <div>
-            <h3>Home</h3>
-            <h3>Services</h3>
-            <h3>Event</h3>
-            <h3>Create</h3>
-          </div>
-          <div>
-            <h3>Facebook</h3>
-            <h3>Instagram</h3>
-            <h3>Twitter</h3>
-            <h3>Tiktok</h3>
-          </div>
-          <div>
-            <h3>Privacy and Policy</h3>
-            <h3>Terms of Service</h3>
-          </div>
+    <div className="h-[360px] bg-[#141461]">
+      <div className="grid grid-cols-2 p-6 md:grid-cols-4 md:justify-items-center">
+        <div className="mt-3 text-white">
+          <h1 className="font-bold">Tentang</h1>
+          <p className="text-sm">About us</p>
+          <p className="text-sm">Blogs</p>
         </div>
-        <h1 className="py-4 text-center text-[#9F9FA8]">
-          <span className="text-white">&copy;</span> 2024 eventify, Inc. All
-          rights reserved.
-        </h1>
+        <div className="mt-3 text-white">
+          <h1 className="font-bold">Categories</h1>
+          <p className="text-sm">Music</p>
+          <p className="text-sm">Sport</p>
+          <p className="text-sm">Conference</p>
+          <p className="text-sm">Holiday</p>
+        </div>
+        <div className="mt-3 text-white">
+          <h1 className="font-bold">Information</h1>
+          <p className="text-sm">Privacy and policy</p>
+          <p className="text-sm">FAQ</p>
+          <p className="text-sm">Tickets</p>
+        </div>
+        <div className="mt-3 text-white">
+          <h1 className="font-bold">Organizer</h1>
+          <p className="text-sm">Creator</p>
+          <p className="text-sm">Sign up</p>
+          <p className="text-sm">Sign in</p>
+        </div>
       </div>
+      <h1 className="text-center text-xl font-bold text-white md:mt-6">
+        EVENTIFY
+      </h1>
+      <div className="mt-3 flex justify-center gap-5">
+        <Instagram color="white" />
+        <Twitter color="white" />
+        <Youtube color="white" />
+        <Facebook color="white" />
+        <Linkedin color="white" />
+      </div>
+      <p className="mt-3 text-center text-sm text-white">
+        <span>&copy;</span>2024 Eventify. All Rights Reserved
+      </p>
     </div>
   );
 };

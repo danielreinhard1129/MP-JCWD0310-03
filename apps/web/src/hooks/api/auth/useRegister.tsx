@@ -1,32 +1,24 @@
-'use client';
-import { axiosInsance } from '@/lib/axios';
-import { IUser } from '@/types/user.type';
-import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+"use client";
+import { axiosInstance } from "@/lib/axios";
+import { IUser } from "@/types/user.type";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
-enum Role {
-  CUSTOMER,
-  ORGANIZER,
-}
-
-interface RegisterArgs extends Omit<IUser, 'id'> {
-  password: string;
-  role: string;
-}
+interface RegisterArgs extends Omit<IUser, "id"> {}
 
 const useRegister = () => {
   const router = useRouter();
   const register = async (payload: RegisterArgs) => {
     try {
-      await axiosInsance.post('/auth/register', payload);
-
-      router.push('/login');
+      await axiosInstance.post("/auth/register", payload);
+      router.push("/");
     } catch (error) {
       if (error instanceof AxiosError) {
-        alert(JSON.stringify(error.response));
+        alert(error.message);
       }
     }
   };
+
   return { register };
 };
 

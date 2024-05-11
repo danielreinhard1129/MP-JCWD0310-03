@@ -26,90 +26,79 @@ enum Role {
 }
 
 model User {
-  id               Int               @id @default(autoincrement())
-  username         String
-  email            String
-  password         String
-  role             Role
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  events           Event[]
-  refferal_code    String
-  Points           Points[]
-  EventParticipant EventParticipant?
-  Review           Review[]
-  Transaction      Transaction[]
+  id                 Int                @id @default(autoincrement())
+  username           String
+  email              String             @unique
+  password           String
+  role               Role
+  refferal           String
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  events             Event[]
+  event_participants EventParticipant[]
+  points             Point[]
+  reviews            Review[]
+  refferal_histories RefferalHistory[]
+  Discount           Discount[]
 
   @@map("users")
 }
 
 model Event {
-  id               Int                @id @default(autoincrement())
-  title            String
-  slug             String
-  price            Decimal            @db.Decimal(10, 2)
-  location         String
-  description      String
-  types            String
-  limit            Int
-  booked           Boolean
-  start_event      DateTime
-  end_event        DateTime
-  category         String
-  userId           Int
-  user             User               @relation(fields: [userId], references: [id])
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  EventParticipant EventParticipant[]
-  Review           Review[]
-  Discount         Discount?
-  Transaction      Transaction[]
+  id                 Int                @id @default(autoincrement())
+  title              String
+  price              Decimal            @db.Decimal(10, 2)
+  location           String
+  description        String
+  limit              Int
+  booked             Int?
+  is_free            Boolean?
+  start_event        DateTime
+  end_event          DateTime
+  category           String
+  userId             Int
+  user               User               @relation(fields: [userId], references: [id])
+  thumbnail          String
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  event_participants EventParticipant[]
+  reviews            Review[]
+  Discount           Discount[]
 
   @@map("events")
 }
 
-// model Refferal {
-//   id        Int      @id @default(autoincrement())
-//   refferal  String
-//   userId    Int      @unique
-//   user      User     @relation(fields: [userId], references: [id])
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-
-//   @@map("refferals")
-// }
-
-model Points {
-  id        Int      @id @default(autoincrement())
-  total     Int
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  expiredAt DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("points")
-}
-
 model EventParticipant {
   id        Int      @id @default(autoincrement())
-  userId    Int      @unique
+  userId    Int
   eventId   Int
   user      User     @relation(fields: [userId], references: [id])
   event     Event    @relation(fields: [eventId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("event_participans")
+  @@map("event_participants")
+}
+
+model Point {
+  id        Int       @id @default(autoincrement())
+  total     Int
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  expiredAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("points")
 }
 
 model Review {
   id        Int      @id @default(autoincrement())
-  eventId   Int
-  userId    Int
   review    String
   rating    Int
+  userId    Int
   user      User     @relation(fields: [userId], references: [id])
+  eventId   Int
   event     Event    @relation(fields: [eventId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -117,30 +106,28 @@ model Review {
   @@map("reviews")
 }
 
+model RefferalHistory {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  discount_rate Decimal  @db.Decimal(5, 2)
+  expiredAt     DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("refferal_history")
+}
+
 model Discount {
   id             Int      @id @default(autoincrement())
   total_discount Decimal  @db.Decimal(8, 2)
-  eventId        Int      @unique
+  eventId        Int
   event          Event    @relation(fields: [eventId], references: [id])
+  userId         Int
+  user           User     @relation(fields: [userId], references: [id])
   expiredAt      DateTime
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
   @@map("discounts")
-}
-
-model Transaction {
-  id          Int      @id @default(autoincrement())
-  userId      Int
-  eventId     Int
-  user        User     @relation(fields: [userId], references: [id])
-  event       Event    @relation(fields: [eventId], references: [id])
-  total_price Decimal  @db.Decimal(10, 2)
-  discount    Decimal  @db.Decimal(5, 2)
-  status      Boolean
-  point       Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("transactions")
 }
