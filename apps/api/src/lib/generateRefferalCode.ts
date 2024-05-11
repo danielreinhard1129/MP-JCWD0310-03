@@ -1,4 +1,4 @@
-export function generateRefferal() {
+export function generateRefferalCode() {
   const randomLength: number = Math.floor(Math.random() * 3) + 3;
   const chars =
     'zyxwvutsrqponmlkjihgfedcbaABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

@@ -1,6 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
-import prisma from '@/prisma';
 import { registerService } from '@/services/auth/register.service';
+import { NextFunction, Request, Response } from 'express';
 
 export class AuthController {
   async registerController(req: Request, res: Response, next: NextFunction) {

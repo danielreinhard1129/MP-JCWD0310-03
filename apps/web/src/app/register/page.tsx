@@ -1,125 +1,106 @@
-'use client';
-import FormInput from '@/components/FormInput';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { RegisterValidationSchema } from './RegisterValidationScehma';
-import React from 'react';
-import { useFormik } from 'formik';
-import { Button } from '@/components/ui/button';
-import useRegister from '@/hooks/api/auth/useRegister';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+"use client";
+import useRegister from "@/hooks/api/auth/useRegister";
+import { useFormik } from "formik";
+import { Key, Mail, Ticket, User } from "lucide-react";
+import { validationSchema } from "./validationSchema";
 
 const Register = () => {
   const { register } = useRegister();
   const formik = useFormik({
     initialValues: {
-      username: '',
-      email: '',
-      password: '',
-      role: '',
+      username: "",
+      email: "",
+      password: "",
+      reff: "",
     },
-    // RegisterValidationSchema,
-    validationSchema: RegisterValidationSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       try {
         register(values);
       } catch (error) {
-        console.error('Registration error:', error);
+        console.error("Registration error:", error);
       }
     },
   });
-
-  const handleRoleChange = (value: any) => {
-    formik.setFieldValue('role', value);
-  };
   return (
-    <div className="grid md:grid-cols-2">
-      <div className="bg-blue-900 md:h-full"></div>
-      <div className="p-3">
-        <Card className="w-[350px] md:w-[600px] mx-auto border border-gray-900">
-          <CardHeader>
-            <h1 className="font-semibold text-xl">Register</h1>
-            <h1 className="font-semibold">Sign up and explore the events!</h1>
-          </CardHeader>
+    <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="hidden h-full items-center justify-center rounded-r-2xl bg-[#1F1F95] md:block md:flex">
+        <h1 className="mx-auto text-2xl font-bold text-white">EVENTIFY.</h1>
+      </div>
+      <div className="h-[600px] max-w-full">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="mx-auto flex h-full max-w-[500px] flex-col justify-center space-y-5 px-10"
+        >
+          <h1 className="text-xl font-bold md:py-5">Sign up</h1>
 
-          <CardContent>
-            <form onSubmit={formik.handleSubmit}>
-              <div className="grid grid-cols-1 gap-3 text-black">
-                <FormInput
-                  name="username"
-                  type="text"
-                  label=" Username"
-                  placeholder="Username"
-                  value={formik.values.username}
-                  error={formik.errors.username}
-                  isError={
-                    !!formik.touched.username && !!formik.errors.username
-                  }
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
-                />
+          <div className="space-y-2">
+            <h1 className="text-[15px] font-semibold">Username</h1>
+            <label className="input input-bordered flex h-[40px] items-center gap-2 rounded-lg">
+              <User color="gray" size={20} />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Username"
+                name="username"
+                value={formik.values.username}
+                onChange={formik.handleChange}
+              />
+            </label>
+          </div>
 
-                <FormInput
-                  name="email"
-                  type="email"
-                  label="Email"
-                  placeholder="Email"
-                  value={formik.values.email}
-                  error={formik.errors.email}
-                  isError={!!formik.touched.email && !!formik.errors.email}
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
-                />
+          <div className="space-y-2">
+            <h1 className="text-[15px] font-semibold">Email</h1>
+            <label className="input input-bordered flex h-[40px] items-center gap-2 rounded-lg">
+              <Mail color="gray" size={20} />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Email"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+              />
+            </label>
+          </div>
 
-                <FormInput
-                  name="password"
-                  type="password"
-                  label="Password"
-                  placeholder="Password"
-                  value={formik.values.password}
-                  error={formik.errors.password}
-                  isError={
-                    !!formik.touched.password && !!formik.errors.password
-                  }
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
-                />
-                <div className="md:flex md:gap-2 items-center">
-                  <Select onValueChange={handleRoleChange}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="What do you want to be?" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Roles</SelectLabel>
-                        <SelectItem value="CUSTOMER">Customer</SelectItem>
-                        <SelectItem value="ORGANIZER">Organizer</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <FormInput
-                    name="role"
-                    type="text"
-                    placeholder="Refferal.."
-                    value={formik.values.role}
-                    error={formik.errors.role}
-                    isError={!!formik.touched.role && !!formik.errors.role}
-                    handleChange={formik.handleChange}
-                    handleBlur={formik.handleBlur}
-                  />
-                </div>
-                <Button type="submit">Register</Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+          <div className="space-y-2">
+            <h1 className="text-[15px] font-semibold">Password</h1>
+            <label className="input input-bordered flex h-[40px] items-center gap-2 rounded-lg">
+              <Key color="gray" size={20} />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Password"
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+              />
+            </label>
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="text-[15px] font-semibold">Refferal</h1>
+            <label className="input input-bordered flex h-[40px] items-center gap-2 rounded-lg">
+              <Ticket color="gray" size={20} />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Refferal"
+                name="reff"
+                value={formik.values.reff}
+                onChange={formik.handleChange}
+              />
+            </label>
+          </div>
+
+          <button
+            className="btn w-full rounded-lg bg-[#1F1F95] text-white"
+            type="submit"
+          >
+            Register
+          </button>
+        </form>
       </div>
     </div>
   );

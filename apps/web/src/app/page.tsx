@@ -1,22 +1,17 @@
-import AccordionPage from "@/components/AccordionPage";
-import CategoryList from "@/components/CategoryList";
-import CityList from "@/components/CityList";
-import Discovery from "@/components/Discovery";
-import EventCard from "@/components/EventCard";
-import Jumbotron from "@/components/Jumbotron";
-import ListEvent from "@/components/ListEvent";
-import Testi from "@/components/Testi";
+import CityList from "@/components/city/CityList";
+import EventCarousel from "@/components/event/EventCarousel";
+import ListEvent from "@/components/event/ListEvent";
+import MarqueeEvent from "@/components/event/MarqueeEvent";
+import HeroSection from "@/components/hero/HeroSection";
 
 export default function Home() {
   return (
     <div>
-      <Jumbotron />
-      <CategoryList />
-      <Discovery />
-      <Testi />
+      <HeroSection />
+      <EventCarousel />
+      <MarqueeEvent />
       <ListEvent />
       <CityList />
-      {/* <AccordionPage />  */}
     </div>
   );
 }
