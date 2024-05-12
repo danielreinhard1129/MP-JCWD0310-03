@@ -2,17 +2,33 @@
 import prisma from "../../prisma"
 import { Event } from "@prisma/client";
 
-export const createEventsService = async (body: Omit<Event, "id">) => {
+interface CreateEventBody extends Omit<Event, "id" | "updateAt" | "createAt" | "thumbnail">{}
+
+
+export const createEventsService = async (body: CreateEventBody, file: Express.Multer.File) => {
     try {
-        const {title, slug, price, location, description, types, limit, booked, start_event, end_event, category, userId} = body;
-        const newEvent = await prisma.event.create({
-            data: {...body}
+        const {title, userId} = body;
+        const existingTitle = await prisma.event.findFirst({
+            where: {title},
         })
-        return {
-            message: "create event success",
-            data: newEvent,
+
+        if(existingTitle){
+            throw new Error("title event already in use")
         }
+        const user = await prisma.user.findFirst({where: {id:Number(userId)}})
+        if (!user){
+            throw new Error("user not found")
+        }
+        return await prisma.event.create({
+            data: {
+                ...body,
+                thumbnail: `/images/${file.filename}`,
+                userId: Number(userId)
+            }
+        })
     } catch (error) {
-        throw error
+        throw error;
     }
+
+        
 }
