@@ -1,28 +1,32 @@
-'use client';
-import React from 'react';
+"use client";
+import Image from "next/image";
+import React from "react";
 
 const HeroSection = () => {
   return (
-    <div className="carousel carousel-center rounded-box mt-5">
-      <div className="carousel-item w-full">
-        <img
-          src="/conf.jpg"
-          alt="conf"
-          className="w-[320px] h-[150px] md:w-[95%] md:h-[350px] mx-auto rounded-xl"
-        />
-      </div>
-      <div className="carousel-item w-full">
-        <img
+    <div className="carousel carousel-center mx-auto mt-5 flex w-full max-w-[90%] gap-3 rounded-box md:mx-auto md:flex md:w-full md:max-w-[95%] md:justify-center md:gap-3">
+      <div className="carousel-item relative h-[150px] w-full md:h-[350px]">
+        <Image
+          fill
           src="/evt.jpg"
-          alt="conf"
-          className="w-[320px] h-[150px] mx-auto md:w-[95%] md:h-[350px] rounded-xl"
+          alt="thumbnail image"
+          className="rounded-lg bg-slate-200 object-cover"
         />
       </div>
-      <div className="carousel-item w-full">
-        <img
-          src="/conf.jpg"
-          alt="conf"
-          className="w-[320px] h-[150px] md:w-[95%] md:h-[350px] mx-auto rounded-xl"
+      <div className="carousel-item relative h-[150px] w-full md:h-[350px]">
+        <Image
+          fill
+          src="/evt.jpg"
+          alt="thumbnail image"
+          className="rounded-lg bg-slate-200 object-cover"
+        />
+      </div>
+      <div className="carousel-item relative h-[150px] w-full md:h-[350px] md:max-w-[80%]">
+        <Image
+          fill
+          src="/evt.jpg"
+          alt="thumbnail image"
+          className="rounded-lg bg-slate-200 object-cover"
         />
       </div>
     </div>
