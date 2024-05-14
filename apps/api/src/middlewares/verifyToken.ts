@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 // import { appConfig } from '../utils/config';
 import { TokenExpiredError, verify } from 'jsonwebtoken';
-import { IUser } from '@/types/user.types';
+import { IUser } from '@/types/user.type';
 import { JWT_SECRET_KEY } from '@/config';
 
 // const secretKey = appConfig.jwt!;
