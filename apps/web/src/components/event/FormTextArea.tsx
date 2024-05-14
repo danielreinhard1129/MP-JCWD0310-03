@@ -1,44 +1,41 @@
-'use client';
-import { FormikHandlers } from 'formik';
-import React from 'react';
-import { Label } from '../ui/label';
-import { Textarea } from '../ui/textarea';
+"use client";
 
-interface FormTextAreaProps {
+import { FormikHandlers } from "formik";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
+
+interface FormInputProps {
   name: string;
   placeholder: string;
-  label: string;
+  onChange: FormikHandlers["handleChange"];
+  onBlur: FormikHandlers["handleBlur"];
   value: string;
   isError: boolean;
   error: string | undefined;
-  handleChange: FormikHandlers['handleChange'];
-  handleBlur: FormikHandlers['handleBlur'];
 }
 
-const FormTextArea: React.FC<FormTextAreaProps> = ({
+const FormTextArea: React.FC<FormInputProps> = ({
   name,
   placeholder,
-  label,
-  handleChange,
-  handleBlur,
+  onChange,
+  onBlur,
   value,
   isError,
   error,
 }) => {
   return (
     <div className="flex flex-col space-y-1.5">
-      <Label htmlFor={name} className={isError ? 'text-red-500' : ''}>
-        {label}
+      <Label htmlFor={placeholder} className={isError ? "text-red-500" : ""}>
+        {placeholder}
       </Label>
       <Textarea
         name={name}
         placeholder={placeholder}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        onChange={onChange}
+        onBlur={onBlur}
         value={value}
-        style={{ resize: 'none' }}
-        rows={4}
-        className={isError ? 'border-red-500' : ''}
+        style={{ resize: "none" }}
+        rows={8}
       />
       {isError ? <div className="text-xs text-red-500">{error}</div> : null}
     </div>
