@@ -4,7 +4,7 @@ import EventCard from "../card/EventCard";
 const EventCarousel = () => {
   return (
     <div>
-      <h1 className="p-5 text-xl font-bold">Events Recomendationlll</h1>
+      <h1 className="p-5 text-xl font-bold">Events Recomendation</h1>
       <div className="carousel carousel-center max-w-full space-x-4 rounded-box p-4 md:mx-auto  md:max-w-full">
         <div className="carousel-item">
           <EventCard />

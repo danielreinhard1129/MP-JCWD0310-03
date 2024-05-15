@@ -16,43 +16,45 @@ export const Header = () => {
     dispatch(logoutAction());
   };
   return (
-    <nav className="sticky top-0 z-50 flex h-[80px] w-full items-center bg-[#1F1F95]">
-      <div className="container mx-auto px-4">
-        <div className="navbar mx-auto max-w-[100%]">
-          <Link
-            href={`/`}
-            className="navbar-start text-xl font-bold text-white"
-          >
-            Eventify.
-          </Link>
+    <div className="w-full bg-[#1F1F95]">
+      <nav className="sticky top-0 z-50 mx-auto flex h-[80px] w-full   items-center ">
+        <div className="container mx-auto max-w-[100%] px-4">
+          <div className="navbar mx-auto">
+            <Link
+              href={`/`}
+              className="navbar-start text-xl font-bold text-white"
+            >
+              Eventify.
+            </Link>
 
-          {Boolean(id) ? (
-            <div className="navbar mx-auto w-full gap-8 text-white">
-              <div className="navbar-center mx-auto justify-center gap-10">
-                <h3>Explore</h3>
-                <Link href={`/admin/create`}>Create</Link>
-                <button onClick={logout}>Logout</button>
-              </div>
-              <div className="avatar navbar-end gap-3">
-                <div className="flex w-8 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100">
-                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            {Boolean(id) ? (
+              <div className="navbar mx-auto w-full gap-8 text-white md:items-center ">
+                <div className="navbar-center mx-auto hidden max-w-[85%] justify-center gap-10 md:block md:flex">
+                  <h3>Explore</h3>
+                  <Link href={`/admin/create`}>Create</Link>
+                  <button onClick={logout}>Logout</button>
                 </div>
-                <h3>{username}</h3>
+                <div className="avatar navbar-end hidden gap-3 md:block md:flex">
+                  <div className="flex w-8 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100">
+                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  </div>
+                  <h3>{username}</h3>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="navbar flex items-center gap-8 text-white">
-              <div className="navbar-end w-full gap-5">
-                <Link href={`/`}>Home</Link>
-                <Link href={`/admin/create`}>Create</Link>
-                <Link href={`/login`}>Login</Link>
-                <Link href={`/register`}>Register</Link>
+            ) : (
+              <div className="navbar flex items-center gap-8 text-white">
+                <div className="navbar-end w-full gap-5">
+                  <Link href={`/`}>Home</Link>
+                  <Link href={`/admin/create`}>Create</Link>
+                  <Link href={`/login`}>Login</Link>
+                  <Link href={`/register`}>Register</Link>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 };
 

@@ -5,8 +5,8 @@ const ListEvent = () => {
   return (
     <div>
       <h1 className="p-6 text-xl font-bold md:mx-[50px]">List Events</h1>
-      <div className="md:mx-auto md:w-full md:max-w-[95%]">
-        <div className="mt-3 grid grid-cols-1 gap-3 md:mx-auto md:max-w-[95%] md:grid-cols-4 md:gap-3">
+      <div className="md:mx-auto md:w-full">
+        <div className="mt-3 grid grid-cols-1 gap-3 md:mx-auto md:max-w-[100%] md:grid-cols-4 md:gap-3">
           <EventCard />
           <EventCard />
           <EventCard />

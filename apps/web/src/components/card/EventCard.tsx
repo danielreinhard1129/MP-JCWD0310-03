@@ -3,7 +3,7 @@ import React from "react";
 
 const EventCard = () => {
   return (
-    <div className="card card-compact mx-auto h-[350px] w-[350px] rounded-lg bg-base-100 shadow-xl md:h-[280px] md:w-[250px]">
+    <div className="card card-compact mx-auto h-[350px] w-[350px] rounded-lg bg-base-100 shadow-xl md:h-[280px] md:w-[280px]">
       <figure>
         <img src="/evt.jpg" />
       </figure>
