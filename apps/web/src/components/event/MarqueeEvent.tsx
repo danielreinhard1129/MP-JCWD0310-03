@@ -13,7 +13,7 @@ const MarqueeEvent = () => {
         </p>
       </div>
       <Marquee pauseOnHover>
-        <div className="flex gap-3">
+        <div className="flex gap-5">
           <MarqueeCard />
           <MarqueeCard />
           <MarqueeCard />

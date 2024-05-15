@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const Header = () => {
   const dispatch = useDispatch();
-  const { id, username } = useSelector((state: RootState) => state.user);
+  const { id, username, role } = useSelector((state: RootState) => state.user);
   const router = useRouter();
 
   const logout = () => {
@@ -30,7 +30,7 @@ export const Header = () => {
             {Boolean(id) ? (
               <div className="navbar mx-auto w-full gap-8 text-white md:items-center ">
                 <div className="navbar-center mx-auto hidden max-w-[85%] justify-center gap-10 md:block md:flex">
-                  <h3>Explore</h3>
+                  <Link href="/list-events">Explore</Link>
                   <Link href={`/admin/create`}>Create</Link>
                   <button onClick={logout}>Logout</button>
                 </div>
@@ -39,6 +39,7 @@ export const Header = () => {
                     <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                   </div>
                   <h3>{username}</h3>
+                  <h3>{role}</h3>
                 </div>
               </div>
             ) : (

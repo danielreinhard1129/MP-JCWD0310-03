@@ -1,12 +1,5 @@
-import { BarChartComponent } from "@/components/charts/BarChart";
-import {
-  BadgePlus,
-  BarChart3,
-  CalendarCheck,
-  CircleUserRound,
-} from "lucide-react";
-import Link from "next/link";
-import React from "react";
+"use client";
+import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
 
 const Dashboard = () => {
   return (
@@ -16,7 +9,7 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AuthGuardOrganizer(Dashboard);
 
 // <div className="grid grid-cols-1 md:mx-auto md:max-w-[100%] md:grid-cols-4">
 //   {/* sidebar */}

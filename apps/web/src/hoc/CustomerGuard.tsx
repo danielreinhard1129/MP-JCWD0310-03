@@ -1,14 +1,22 @@
 "use client";
+
+import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function AuthGuard(Component: any) {
+export default function AuthGuardUser(Component: any) {
   return function IsAuth(props: any) {
     const [isLoading, setIsLoading] = useState(true);
 
-    const { id } = useSelector((state: RootState) => state.user);
+    const { role, id } = useSelector((state: RootState) => state.user);
+
+    useEffect(() => {
+      if (!id && !isLoading) {
+        redirect("/login");
+      }
+    }, [id, isLoading]);
 
     useEffect(() => {
       setTimeout(() => {
@@ -17,10 +25,11 @@ export default function AuthGuard(Component: any) {
     }, []);
 
     useEffect(() => {
-      if (!id && !isLoading) {
-        redirect("/login");
+      if (role == "ORGANIZER" && !isLoading) {
+        alert("Please sign up or login as a user.");
+        redirect("/admin/login");
       }
-    }, [id, isLoading]);
+    }, [role, isLoading]);
 
     if (isLoading || !id) {
       return (
@@ -29,6 +38,7 @@ export default function AuthGuard(Component: any) {
         </h1>
       );
     }
+
     return <Component {...props} />;
   };
 }

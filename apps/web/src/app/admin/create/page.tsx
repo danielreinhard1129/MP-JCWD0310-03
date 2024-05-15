@@ -17,7 +17,8 @@ import useCreateEvent from "@/hooks/api/events/useCreateEvent";
 import { IFormCreateEvent } from "@/types/event.type";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import AuthGuard from "@/hoc/AuthGuard";
+// import AuthGuardOrganizer from "@/hoc/CustomerGuard";
+import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
 // import { SelectSingleEventHandler } from 'shadcn';
 // import AuthGuard from '@/hoc/AuthGuard';
 const Write = () => {
@@ -202,4 +203,4 @@ const Write = () => {
   );
 };
 
-export default AuthGuard(Write);
+export default AuthGuardOrganizer(Write);
