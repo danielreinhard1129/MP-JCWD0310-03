@@ -6,6 +6,7 @@ interface UserState {
   username: string;
   reff?: string;
   refferal: string;
+  role: string;
 }
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   username: "",
   email: "",
   refferal: "",
+  role: "",
 };
 
 export const userSlice = createSlice({
@@ -24,6 +26,7 @@ export const userSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.refferal = action.payload.refferal;
+      state.role = action.payload.role;
     },
 
     logoutAction: (state) => {
@@ -31,6 +34,7 @@ export const userSlice = createSlice({
       state.username = "";
       state.email = "";
       state.refferal = "";
+      state.role = "";
     },
   },
 });

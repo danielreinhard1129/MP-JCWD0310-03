@@ -17,7 +17,8 @@ import useCreateEvent from "@/hooks/api/events/useCreateEvent";
 import { IFormCreateEvent } from "@/types/event.type";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import AuthGuard from "@/hoc/AuthGuard";
+// import AuthGuardOrganizer from "@/hoc/CustomerGuard";
+import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
 // import { SelectSingleEventHandler } from 'shadcn';
 // import AuthGuard from '@/hoc/AuthGuard';
 const Write = () => {
@@ -57,35 +58,36 @@ const Write = () => {
 
   return (
     <main className="container mx-auto my-3 px-4">
-      <h1 className="my-3 text-center text-lg font-bold">Create Event</h1>
+      <h1 className="mb-10 text-center text-lg font-bold">Create Event</h1>
       <form onSubmit={handleSubmit}>
-        <div className="mx-auto flex max-w-[50%] flex-col gap-4 space-y-1.5">
+        <div className="mx-auto flex grid max-w-[70%] flex-col gap-4 space-y-1.5 md:grid-cols-2">
           {/* TITLE INPUT */}
-          <FormInput
-            name="title"
-            label="Title"
-            error={errors.title}
-            isError={!!touched.title && !!errors.title}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            placeholder="Title"
-            type="text"
-            value={values.title}
-          />
-          {/* TICKET LIMIT */}
-          <FormInput
-            name="limit"
-            label="Limit"
-            error={errors.limit}
-            isError={!!touched.limit && !!errors.limit}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            placeholder="Limit"
-            type="number"
-            value={values.limit}
-          />
-          {/* DATE INPUT */}
-          <div className="space-y-2">
+          <div className="space-y-5">
+            <FormInput
+              name="title"
+              label="Title"
+              error={errors.title}
+              isError={!!touched.title && !!errors.title}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              placeholder="Title"
+              type="text"
+              value={values.title}
+            />
+            {/* TICKET LIMIT */}
+            <FormInput
+              name="limit"
+              label="Limit"
+              error={errors.limit}
+              isError={!!touched.limit && !!errors.limit}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              placeholder="Limit"
+              type="number"
+              value={values.limit}
+            />
+            {/* DATE INPUT */}
+
             <FormInput
               name="start_event"
               label="Start Date"
@@ -108,76 +110,92 @@ const Write = () => {
               type="date"
               value={values.end_event || 0}
             />
+
+            <FormInput
+              name="category"
+              label="Category"
+              error={errors.category}
+              isError={!!touched.category && !!errors.category}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              placeholder="Category"
+              type="text"
+              value={values.category}
+            />
+            {/* 
+            <Dropzone
+              isError={Boolean(errors.thumbnail)}
+              label="Thumbnail"
+              onDrop={(files) =>
+                setFieldValue("thumbnail", [
+                  ...values.thumbnail,
+                  ...files.map((file) => file),
+                ])
+              }
+            /> */}
+
+            {/* DESCRIPTION INPUT */}
+            <FormTextArea
+              name="description"
+              error={errors.description}
+              isError={!!touched.description && !!errors.description}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              placeholder="Description"
+              value={values.description}
+            />
           </div>
-          <FormInput
-            name="category"
-            label="Category"
-            error={errors.category}
-            isError={!!touched.category && !!errors.category}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            placeholder="Category"
-            type="text"
-            value={values.category}
-          />
-          {/* DESCRIPTION INPUT */}
-          <FormTextArea
-            name="description"
-            error={errors.description}
-            isError={!!touched.description && !!errors.description}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            placeholder="Description"
-            value={values.description}
-          />
+
           {/* VENUE INPUT */}
+          <div className="space-y-5">
+            <FormInput
+              name="location"
+              label="Location"
+              error={errors.location}
+              isError={!!touched.location && !!errors.location}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              placeholder="Location"
+              type="text"
+              value={values.location}
+            />
+            <FormInput
+              name="price"
+              label="Price"
+              error={errors.price}
+              isError={!!touched.price && !!errors.price}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              placeholder="Price"
+              type="number"
+              value={String(values.price)}
+            />
 
-          <FormInput
-            name="location"
-            label="Location"
-            error={errors.location}
-            isError={!!touched.location && !!errors.location}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            placeholder="Location"
-            type="text"
-            value={values.location}
-          />
-          <FormInput
-            name="price"
-            label="Price"
-            error={errors.price}
-            isError={!!touched.price && !!errors.price}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            placeholder="Price"
-            type="number"
-            value={String(values.price)}
-          />
+            {/* PREVIEW IMAGE */}
+            <PreviewImages
+              fileImages={values.thumbnail}
+              onRemoveImage={(idx: number) =>
+                setFieldValue("thumbnail", values.thumbnail?.toSpliced(idx, 1))
+              }
+            />
+            {/* UPLOAD IMAGE */}
+            <Dropzone
+              isError={Boolean(errors.thumbnail)}
+              label="Thumbnail"
+              onDrop={(files) =>
+                setFieldValue("thumbnail", [
+                  ...values.thumbnail,
+                  ...files.map((file) => file),
+                ])
+              }
+            />
 
-          {/* PREVIEW IMAGE */}
-          <PreviewImages
-            fileImages={values.thumbnail}
-            onRemoveImage={(idx: number) =>
-              setFieldValue("thumbnail", values.thumbnail?.toSpliced(idx, 1))
-            }
-          />
-          {/* UPLOAD IMAGE */}
-          <Dropzone
-            isError={Boolean(errors.thumbnail)}
-            label="Thumbnail"
-            onDrop={(files) =>
-              setFieldValue("thumbnail", [
-                ...values.thumbnail,
-                ...files.map((file) => file),
-              ])
-            }
-          />
-          {/* SUBMIT */}
-          <div className="mb-4 flex justify-center">
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
+            {/* SUBMIT */}
+            <div className="mb-4 flex justify-center">
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
+            </div>
           </div>
         </div>
       </form>
@@ -185,4 +203,4 @@ const Write = () => {
   );
 };
 
-export default AuthGuard(Write);
+export default AuthGuardOrganizer(Write);

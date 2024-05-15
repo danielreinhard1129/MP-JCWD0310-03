@@ -74,3 +74,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .menu {
+    @apply flex w-full items-center gap-2 rounded-lg px-4 py-2 transition duration-300 hover:bg-gray-100;
+  }
+}
