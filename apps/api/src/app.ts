@@ -11,6 +11,7 @@ import { PORT } from './config';
 import { SampleRouter } from './routers/sample.router';
 import { AuthRouter } from './routers/auth.router';
 import { EventRouter } from './routers/events.router';
+import { ReviewRouter } from './routers/review.router';
 
 export default class App {
   private app: Express;
@@ -55,10 +56,12 @@ export default class App {
     const sampleRouter = new SampleRouter();
     const authRouter = new AuthRouter();
     const eventRouter = new EventRouter();
+    const reviewRouter = new ReviewRouter();
 
     this.app.use('/api/samples', sampleRouter.getRouter());
     this.app.use('/api/auth', authRouter.getRouter());
     this.app.use('/api/events', eventRouter.getRouter());
+    this.app.use('/api/reviews', reviewRouter.getRouter());
   }
 
   public start(): void {
