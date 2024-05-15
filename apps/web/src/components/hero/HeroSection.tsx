@@ -1,6 +1,9 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+("use client");
+import Image from "next/image";
+import React from "react";
 
 const HeroSection = () => {
   return (
@@ -17,6 +20,8 @@ const HeroSection = () => {
         <Image
           fill
           src="/evt.jpg"
+          alt="thumbnail image"
+          className="rounded-lg bg-slate-200 object-cover"
           alt="thumbnail image"
           className="rounded-lg bg-slate-200 object-cover"
         />

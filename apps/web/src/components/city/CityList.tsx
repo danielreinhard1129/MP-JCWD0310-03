@@ -4,7 +4,7 @@ const CityList = () => {
   return (
     <div className=" p-3">
       <div className="carousel mt-3 w-full gap-3 rounded-box ">
-        <div className="flex justify-center gap-3 md:mx-auto md:gap-[120px]">
+        <div className="flex justify-center gap-3 md:mx-auto md:gap-10">
           <div>
             <div className="carousel-item w-[150px] md:w-[150px]">
               <img src="/sby.png" className="rounded-md" />

@@ -14,9 +14,20 @@ const EventCard = () => {
         <div className="flex items-center gap-2">
           <CalendarDays color="blue" size={20} />
           <p className="font-sm text-[11px] text-sm text-gray-500">
+        <h2 className="card-title text-[15px] font-bold">
+          Jakarta Tech Conference
+        </h2>
+        <div className="flex items-center gap-2">
+          <CalendarDays color="blue" size={20} />
+          <p className="font-sm text-[11px] text-sm text-gray-500">
             10 Mar 2024 - 31 May 2024
           </p>
         </div>
+        <div className="flex items-center gap-2">
+          <MapPin color="blue" size={20} />
+          <p className="font-sm text-[11px] text-sm text-gray-500">
+            Stone Valley by Haho
+          </p>
         <div className="flex items-center gap-2">
           <MapPin color="blue" size={20} />
           <p className="font-sm text-[11px] text-sm text-gray-500">
@@ -26,8 +37,12 @@ const EventCard = () => {
         <div className="card-actions justify-start"></div>
         <div className="flex items-center justify-between">
           <h1 className="justidy-start text-sm font-bold text-orange-600">
+        <div className="card-actions justify-start"></div>
+        <div className="flex items-center justify-between">
+          <h1 className="justidy-start text-sm font-bold text-orange-600">
             Rp 20.000
           </h1>
+          <button className="btn justify-end rounded-md bg-[#1F1F95] text-white md:btn-sm">
           <button className="btn justify-end rounded-md bg-[#1F1F95] text-white md:btn-sm">
             Buy ticket
           </button>
