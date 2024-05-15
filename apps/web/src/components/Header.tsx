@@ -1,5 +1,4 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
 import { RootState } from "@/redux/store";
 import Link from "next/link";
@@ -8,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const Header = () => {
   const dispatch = useDispatch();
-  const { id, username, role } = useSelector((state: RootState) => state.user);
+  const { id, username } = useSelector((state: RootState) => state.user);
   const router = useRouter();
 
   const logout = () => {
@@ -39,7 +38,6 @@ export const Header = () => {
                     <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                   </div>
                   <h3>{username}</h3>
-                  <h3>{role}</h3>
                 </div>
               </div>
             ) : (
