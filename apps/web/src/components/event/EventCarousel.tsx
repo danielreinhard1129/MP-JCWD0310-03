@@ -1,7 +1,5 @@
 import React from "react";
 import EventCard from "../card/EventCard";
-import React from "react";
-import EventCard from "../card/EventCard";
 
 const EventCarousel = () => {
   return (

@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-("use client");
-import Image from "next/image";
-import React from "react";
 
 const HeroSection = () => {
   return (
@@ -17,14 +14,7 @@ const HeroSection = () => {
         />
       </div>
       <div className="carousel-item relative h-[150px] w-full max-w-[100%] md:h-[350px]">
-        <Image
-          fill
-          src="/evt.jpg"
-          alt="thumbnail image"
-          className="rounded-lg bg-slate-200 object-cover"
-          alt="thumbnail image"
-          className="rounded-lg bg-slate-200 object-cover"
-        />
+        <Image fill src="/evt.jpg" alt="thumbnail image" />
       </div>
       <div className="carousel-item relative h-[150px] w-full max-w-[100%] md:h-[350px]">
         <Image
