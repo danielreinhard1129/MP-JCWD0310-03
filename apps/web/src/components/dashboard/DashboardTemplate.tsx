@@ -1,3 +1,5 @@
+"use client";
+import { RootState } from "@/redux/store";
 import {
   BarChart3,
   CalendarClock,
@@ -7,12 +9,14 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
 
 export const DashboardTemplate = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
+  const { id } = useSelector((state: RootState) => state.user);
   return (
     <main className="flex h-screen">
       <aside className="flex flex-col justify-between border-r-2 p-8 md:w-[230px]">
@@ -22,11 +26,11 @@ export const DashboardTemplate = ({
             Statistics
           </Link>
 
-          <Link className="menu" href="/admin/dashboard/events">
+          <Link className="menu" href={`/admin/dashboard/list/${id}`}>
             <CalendarClock size={15} />
             Events
           </Link>
-          <Link className="menu" href="/admin/dashboard/statistics">
+          <Link className="menu" href="/admin/dashboard/create">
             <CalendarPlus2 size={15} />
             Create
           </Link>

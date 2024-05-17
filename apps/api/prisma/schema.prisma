@@ -39,7 +39,9 @@ model User {
   points             Point[]
   reviews            Review[]
   refferal_histories RefferalHistory[]
-  Discount           Discount[]
+  discounts          Discount[]
+  rewards            Reward?
+  transactions       Transaction[]
 
   @@map("users")
 }
@@ -63,7 +65,8 @@ model Event {
   updatedAt          DateTime           @updatedAt
   event_participants EventParticipant[]
   reviews            Review[]
-  Discount           Discount[]
+  discounts          Discount[]
+  transactions       Transaction[]
 
   @@map("events")
 }
@@ -130,4 +133,34 @@ model Discount {
   updatedAt      DateTime @updatedAt
 
   @@map("discounts")
+}
+
+model Reward {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique
+  user        User     @relation(fields: [userId], references: [id])
+  rewardTotal Int
+  isUsed      Boolean  @default(false)
+  expiredAt   DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("rewards")
+}
+
+model Transaction {
+  id          Int   @id @default(autoincrement())
+  userId      Int
+  user        User  @relation(fields: [userId], references: [id])
+  eventId     Int
+  event       Event @relation(fields: [eventId], references: [id])
+  qty         Int
+  total_price Int
+  point_used  Int
+
+  approval_image String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("transactions")
 }

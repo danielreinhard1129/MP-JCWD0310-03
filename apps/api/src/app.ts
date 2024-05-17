@@ -5,13 +5,16 @@ import express, {
   Request,
   Response,
   NextFunction,
+  static as static_,
 } from 'express';
 import cors from 'cors';
 import { PORT } from './config';
 import { SampleRouter } from './routers/sample.router';
 import { AuthRouter } from './routers/auth.router';
+import { join } from 'path';
 import { EventRouter } from './routers/events.router';
 import { AuthAdminRouter } from './routers/auth-admin.router';
+import { TransactionRouter } from './routers/transaction.router';
 
 export default class App {
   private app: Express;
@@ -27,6 +30,7 @@ export default class App {
     this.app.use(cors());
     this.app.use(json());
     this.app.use(urlencoded({ extended: true }));
+    this.app.use('/api/assets', static_(join(__dirname, '../public')));
   }
 
   private handleError(): void {
@@ -57,11 +61,13 @@ export default class App {
     const authRouter = new AuthRouter();
     const eventRouter = new EventRouter();
     const authAdminRouter = new AuthAdminRouter();
+    const transactionRouter = new TransactionRouter();
 
     this.app.use('/api/samples', sampleRouter.getRouter());
     this.app.use('/api/auth', authRouter.getRouter());
     this.app.use('/api/auth/admin', authAdminRouter.getRouter());
     this.app.use('/api/events', eventRouter.getRouter());
+    this.app.use('/api/transactions', transactionRouter.getRouter());
   }
 
   public start(): void {
