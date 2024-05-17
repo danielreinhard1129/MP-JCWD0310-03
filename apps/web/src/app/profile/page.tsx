@@ -1,13 +1,13 @@
-import Profile from "@/components/profile/Profile";
-import React from "react";
-// import Profile
+// import Profile from "@/components/profile/Profile";
+// import React from "react";
+// // import Profile
 
-const ProfileUser = () => {
-  return (
-    <div>
-      <Profile />
-    </div>
-  );
-};
+// const ProfileUser = () => {
+//   return (
+//     <div>
+//       <Profile />
+//     </div>
+//   );
+// };
 
-export default ProfileUser;
+// export default ProfileUser;

@@ -19,11 +19,17 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 // import AuthGuardOrganizer from "@/hoc/CustomerGuard";
 import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
+import { useState } from "react";
 // import { SelectSingleEventHandler } from 'shadcn';
 // import AuthGuard from '@/hoc/AuthGuard';
 const Write = () => {
   const { createEvent } = useCreateEvent();
   const { id } = useSelector((state: RootState) => state.user);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleIsBoxChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsOpen(event.target.checked);
+  };
 
   const {
     handleSubmit,
@@ -170,6 +176,19 @@ const Write = () => {
               type="number"
               value={String(values.price)}
             />
+            <div>
+              <label htmlFor="">
+                <input
+                  type="checkbox"
+                  onChange={handleIsBoxChecked}
+                  checked={isOpen}
+                />
+                is it free?
+              </label>
+              {!isOpen && (
+                <div>Render something when the input isn't checked</div>
+              )}
+            </div>
 
             {/* PREVIEW IMAGE */}
             <PreviewImages

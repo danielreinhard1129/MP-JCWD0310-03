@@ -1,34 +1,37 @@
-import React from "react";
-import EventCard from "../card/EventCard";
+import CardEvent from "../card/CardEvent";
 
 const EventCarousel = () => {
   return (
     <div>
-      <h1 className="p-5 text-xl font-bold">Events Recomendation</h1>
-      <div className="carousel carousel-center max-w-full gap-3 space-x-4 rounded-box p-4  md:mx-auto md:max-w-full">
-        <div className="carousel-item">
-          <EventCard />
-        </div>
-        <div className="carousel-item">
-          <EventCard />
-        </div>
-        <div className="carousel-item">
-          <EventCard />
-        </div>
-        <div className="carousel-item">
-          <EventCard />
-        </div>
-        <div className="carousel-item">
-          <EventCard />
-        </div>
-        <div className="carousel-item">
-          <EventCard />
-        </div>
-        <div className="carousel-item">
-          <EventCard />
-        </div>
-        <div className="carousel-item">
-          <EventCard />
+      <div className="container px-4 py-4">
+        <h1 className="text-xl font-bold text-[#393e41]">
+          Events Recomendation
+        </h1>
+        <div className="carousel carousel-center my-3 max-w-full  gap-5 space-x-4 rounded-box md:mx-auto md:h-[290px] md:max-w-full">
+          <div className="carousel-item">
+            <CardEvent />
+          </div>
+          <div className="carousel-item">
+            <CardEvent />
+          </div>
+          <div className="carousel-item">
+            <CardEvent />
+          </div>
+          <div className="carousel-item">
+            <CardEvent />
+          </div>
+          <div className="carousel-item">
+            <CardEvent />
+          </div>
+          <div className="carousel-item">
+            <CardEvent />
+          </div>
+          <div className="carousel-item">
+            <CardEvent />
+          </div>
+          <div className="carousel-item">
+            <CardEvent />
+          </div>
         </div>
       </div>
     </div>

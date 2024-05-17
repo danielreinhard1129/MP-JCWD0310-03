@@ -30,7 +30,7 @@ export const Header = () => {
             <div className="navbar mx-auto w-full gap-8 text-white">
               <div className="navbar-center mx-auto justify-center gap-10">
                 <h3>Explore</h3>
-                <Link href={`/admin/create`}>Create</Link>
+                <Link href={`/admin/dashboard/create`}>Create</Link>
                 <button onClick={logout}>Logout</button>
               </div>
               <div className="avatar navbar-end gap-3">
