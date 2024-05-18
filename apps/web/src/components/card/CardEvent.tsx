@@ -1,8 +1,19 @@
 import { CalendarDays, MapPin } from "lucide-react";
-import React from "react";
+import Link from "next/link";
+import React, { FC } from "react";
 
+interface CardBody{
+    
+        title: string;
+        thumbnail?: string;
+        start_event?: Date;
+        location: string;
+        price: number;
+        
+      
+}
 
-const EventCard = () => {
+const CardEvent: React.FC<CardBody> = ({}) => {
   return (
     <div className="card card-compact mx-auto h-[350px] w-[350px] rounded-lg bg-base-100 shadow-xl md:h-[280px] md:w-[250px]">
       <figure>
@@ -35,7 +46,8 @@ const EventCard = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 
-export default EventCard;
+export default CardEvent;

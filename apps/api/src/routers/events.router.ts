@@ -21,7 +21,12 @@ export class EventRouter {
       uploader('IMG', '/images').array('thumbnail', 1),
       this.eventController.createEventController,
     );
+    this.router.get("/", this.eventController.getEventsController);
+    this.router.get("/by-category", this.eventController.getEventByCategoryController)
+    this.router.get("/by-location", this.eventController.getEventByLocationController)
     // this.router.get('/:id', this.eventController.getEventController);
+    this.router.patch("/:id", uploader("IMG", "/images").array("thumbnail", 1), this.eventController.updateEventService);
+    
   }
 
   getRouter(): Router {
