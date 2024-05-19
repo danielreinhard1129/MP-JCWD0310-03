@@ -1,27 +1,17 @@
 "use client";
 
-// import Dropzone from '@/components/Dropzone';
 import Dropzone from "@/components/event/Dropzone";
-// import FormInput from '@/components/FormInput';
 import FormInput from "@/components/event/FormInput";
-// import FormTextArea from '@/components/FormTextArea';
-// import PreviewImages from '@/components/PreviewImages';
 import PreviewImages from "@/components/event/PreviewImages";
-// import RichTextEditor from '@/components/RichTextEditor';
 import { Button } from "@/components/ui/button";
-// import { useAppSelector } from '@/redux/hooks';
 import { useFormik } from "formik";
-// import { validationSchema } from './validationSchema.ts';
 import FormTextArea from "@/components/event/FormTextArea";
 import useCreateEvent from "@/hooks/api/events/useCreateEvent";
 import { IFormCreateEvent } from "@/types/event.type";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-// import AuthGuardOrganizer from "@/hoc/CustomerGuard";
 import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
 import { useState } from "react";
-// import { SelectSingleEventHandler } from 'shadcn';
-// import AuthGuard from '@/hoc/AuthGuard';
 const Write = () => {
   const { createEvent } = useCreateEvent();
   const { id } = useSelector((state: RootState) => state.user);

@@ -42,10 +42,12 @@ const useCreateEvent = () => {
         createEventForm.append("thumbnail", file);
       });
 
+      console.log(createEventForm);
+
       await axiosInstance.post<IEvent>("/events", createEventForm);
       // toast success here
       alert("success create event");
-      router.push("/");
+      router.push("/admin/dashboard/events");
     } catch (error) {
       if (error instanceof AxiosError) {
         //TODO: put toast here

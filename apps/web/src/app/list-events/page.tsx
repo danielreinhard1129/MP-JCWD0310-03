@@ -1,9 +1,8 @@
 "use client";
-import EventCard from "@/components/card/EventCard";
-import ExploreEvents from "@/components/event/ExploreEvents";
+import CardEvent from "@/components/card/CardEvent";
 import { IEvent } from "@/types/event.type";
 import { appConfig } from "@/utils/config";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ListEvents = () => {
   const [events, setEvents] = useState<IEvent[]>([]);
@@ -27,10 +26,10 @@ const ListEvents = () => {
   }
 
   return (
-    <div className="my-3 grid grid-cols-1 md:grid-cols-4">
+    <div className="container  grid grid-cols-1 gap-5 px-4 py-4 md:grid-cols-4">
       {events.map((event, index) => (
         // <div key={event.id}>
-        <EventCard
+        <CardEvent
           key={index}
           location={event.location}
           title={event.title}
@@ -47,3 +46,13 @@ const ListEvents = () => {
 };
 
 export default ListEvents;
+
+// <EventCard
+//   key={index}
+//   location={event.location}
+//   title={event.title}
+//   price={event.price}
+//   start_event={new Date(event.start_event)}
+//   eventId={event.id}
+//   imageUrl={appConfig.baseUrl + `/assets${event.thumbnail}`}
+// />

@@ -1,105 +1,170 @@
 "use client";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import useGetEvent from "@/hooks/api/events/useGetEvent";
+import { axiosInstance } from "@/lib/axios";
+import { RootState } from "@/redux/store";
+import { IFormTransaction } from "@/types/transaction.type";
 import { appConfig } from "@/utils/config";
-import { format, getDate, parseISO } from "date-fns";
-import { Calendar, Hourglass, Locate } from "lucide-react";
+import { CalendarDays, LocateIcon, Timer } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const EventDetail = ({ params }: { params: { id: string } }) => {
   const { event, loading } = useGetEvent(Number(params.id));
+  const { id } = useSelector((state: RootState) => state.user);
 
-  // const dateObject = parseISO(event?.start_event);
-  // const dayOfMonth = dateObject ? getDate(dateObject) : null;
+  const [qty, setQty] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  console.log("QTY", qty);
+  console.log("TOTAL", totalPrice);
+
+  const formatRupiah = (price: any) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(price);
+  };
+
+  const handleIncrementQty = () => {
+    setQty((prev) => prev + 1);
+    setTotalPrice((prev) => prev + Number(event?.price));
+  };
+
+  const handleDicrementQty = () => {
+    if (qty > 1) {
+      setQty((prev) => prev - 1);
+      setTotalPrice((prev) => prev - Number(event?.price));
+    }
+  };
+
+  const handleBuyTicket = async () => {
+    try {
+      const transaction = await axiosInstance.post<IFormTransaction>(
+        "/transactions",
+        {
+          userId: id,
+          eventId: event?.id,
+          qty,
+          total_price: totalPrice,
+          point_used: 100,
+          approval_image: "",
+        },
+      );
+
+      console.log("Transaction created:", transaction.data);
+      // Redirect or show a success message
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div>
-      <div className="space-y-1.5 p-3 md:mx-auto md:w-[85%]">
-        <div className="md:grid md:grid-cols-3">
-          <div className="md:col-span-2 md:space-y-1.5">
-            <h1 className="badge badge-primary badge-md p-3 text-white">
-              {event?.category}
-            </h1>
-            <h1 className="text-xl font-bold">{event?.title}</h1>
-            {/* <img
-            src={`${appConfig.baseUrl}/assets${event?.thumbnail}`}
-            alt=""
-            className="h-[150px] w-[500px] md:h-[400px] md:w-full rounded-lg"
-          /> */}
-            <div className="relative h-[400px]">
-              <Image
-                fill
-                src={`${appConfig.baseUrl}/assets${event?.thumbnail}`}
-                alt="thumbnail image"
-                className="rounded-lg bg-slate-200 object-cover"
-              />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="avatar mt-3">
-                <div className="w-12 rounded-full">
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                    className="w-12"
-                  />
-                </div>
-              </div>
-              <div className="">
-                <h3 className="font-semibold text-gray-500">Organizer</h3>
-                <h3 className="font-bold">{event?.user.username}</h3>
-              </div>
-            </div>
+      <div className="md:container md:mx-auto md:px-4 md:py-4">
+        <div className="md:grid md:grid-cols-3 md:gap-3">
+          <div className="relative col-span-2  h-[200px] overflow-hidden md:h-[400px] md:rounded-md">
+            <Image
+              src={`${appConfig.baseUrl}/assets${event?.thumbnail}`}
+              alt="thumbnail"
+              className="max-w-[100%] object-cover"
+              fill
+            />
           </div>
-
-          <div className="md:mt-5 md:space-y-2 md:p-6">
-            <div className="space-y-1.5">
-              <h1 className="my-5 text-[16px] font-bold">Detail Event</h1>
-              <div className="flex items-center gap-3 space-y-4">
-                <div className="my-4 flex items-center gap-3">
-                  <Calendar color="purple" />
-                  <div>
-                    <h3 className="font-semibold text-gray-500">Date</h3>
-                    <h3 className="text-sm font-bold">
-                      {/* {format(event?.start_event, 'dd MMMM yyyy')} -{' '}
-                  {format(
-                    new Date(event?.end_event).toString(),
-                    'dd MMMM yyyy',
-                  )} */}
-                      11 May 2024
-                    </h3>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Hourglass color="purple" />
-                <div>
-                  <h3 className="font-semibold text-gray-500">Time</h3>
-                  <h3 className="text-sm font-bold">13.00 - 23.00</h3>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Calendar color="purple" />
-                <div>
-                  <h3 className="font-semibold text-gray-500">Location</h3>
-                  <h3 className="text-sm font-bold">{event?.location}</h3>
-                </div>
-              </div>
-
-              <button className="btn btn-primary w-full rounded-md text-white">
-                Buy ticket
+          {/* main */}
+          <div className="space-y-2 rounded-lg px-3 py-3 shadow-2xl md:sticky md:top-4 md:space-y-3 md:bg-[##f5f5f5] md:p-7">
+            <Badge className="bg-[#e94f37]"> {event?.category}</Badge>
+            <h1 className="text-lg font-bold text-[#393e41]">{event?.title}</h1>
+            <div className="flex items-center gap-3">
+              <CalendarDays size={18} color="gray" />
+              <p className="text-sm">06 Jun - 07 Jun 2024</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <Timer size={18} color="gray" />
+              <p className="text-sm">14.00 - 23.00 WITA</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <LocateIcon size={18} color="gray" />
+              <p className="text-sm">{event?.location}</p>
+            </div>
+            <hr className="border-b-1 border border-gray-400" />
+            <h3>Organized by</h3>
+            <h3 className="font-bold">{event?.user.username}</h3>
+            <hr className="border-b-1 border border-gray-400" />
+            <h1 className="hidden font-bold md:block">
+              {formatRupiah(event?.price)}
+            </h1>
+            <div>
+              <h1>{qty}</h1>
+              <button onClick={handleIncrementQty}>+</button>
+              <button onClick={handleDicrementQty} disabled={qty === 1}>
+                -
               </button>
             </div>
+            <h1>Total price: {formatRupiah(totalPrice)}</h1>
+            <p>event: {event?.id}</p>
+            <p>user: {id}</p>
+            <Button
+              className="hidden w-full border border-black bg-white px-2 text-[#393e41] hover:bg-[#e94f37] hover:text-white md:block"
+              onClick={handleBuyTicket}
+            >
+              Buy Ticket
+            </Button>
+            <h1 className="text-lg font-semibold md:hidden">Description</h1>
+            <p className="md:hidden">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam
+              accusamus praesentium quasi nobis, minus ratione id vitae. Sed
+              incidunt expedita soluta cum voluptatibus ipsum! Quae neque amet
+              mollitia. Quos, magni. Labore unde tempora optio illo aspernatur
+              nobis modi sapiente nisi facere quasi? Blanditiis ab ex aperiam
+              facere voluptates voluptate, hic aut veniam excepturi harum
+              tempora, pariatur, debitis nisi cum fuga?
+            </p>
           </div>
+          {/* end main */}
+
+          {/* md desc */}
+          <div className="hidden max-w-full md:col-span-2 md:block md:space-y-4">
+            <h1 className="text-lg font-bold">Description</h1>
+            <p className="max-w-full text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+              doloremque cumque fuga magnam. Debitis ratione tempora qui
+              necessitatibus! Pariatur dolorum veritatis libero aut, inventore
+              nihil dicta consequatur? Esse, commodi alias. Fuga voluptatibus
+              expedita eos? Recusandae quae vero blanditiis iure quod? Harum
+              unde quos voluptatem excepturi ipsum nesciunt sint dolorum
+              eligendi modi vero in dolores, temporibus aut ducimus incidunt
+              aperiam non? Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Excepturi repellendus sint porro itaque labore doloribus
+              praesentium nulla impedit rerum ea, non nemo! Vero deleniti natus
+              pariatur omnis accusantium fugiat quasi. Necessitatibus tempora
+              corporis, quidem rerum sunt assumenda quos iusto dolorem.
+              Consequuntur tempora, nemo at nihil explicabo dolore possimus amet
+              rerum ullam fugiat quo culpa, minus obcaecati voluptatibus
+              eligendi, aspernatur dolores.
+            </p>
+          </div>
+          {/* end md desc */}
+
+          {/* button */}
+          <div className="md:hidden">
+            <div className="fixed bottom-0 flex w-full items-center justify-between bg-white p-4 ">
+              <div className="px-2">
+                <h3 className="text-base text-[#393e41]">Price</h3>
+                <h1 className="font-semibold text-[#393e41]">
+                  {formatRupiah(event?.price)}
+                </h1>
+              </div>
+              <Button className="w-[60%] border border-black bg-white px-2 text-[#393e41] hover:bg-[#e94f37] hover:text-white">
+                Buy Ticket
+              </Button>
+            </div>
+          </div>
+
+          {/* end button */}
         </div>
-        <h1 className="text-lg font-bold md:mt-5">Description</h1>
-        <p className="font-regular text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
-          molestias numquam commodi eos aliquam autem minima tempora laborum,
-          velit vel quod quisquam eveniet ab alias accusamus illo blanditiis
-          iusto culpa.
-        </p>
       </div>
     </div>
   );
