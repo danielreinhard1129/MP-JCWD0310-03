@@ -40,8 +40,9 @@ model User {
   reviews            Review[]
   refferal_histories RefferalHistory[]
   discounts          Discount[]
-  rewards            Reward?
+  rewards            Reward[]
   transactions       Transaction[]
+  Voucher            Voucher[]
 
   @@map("users")
 }
@@ -53,7 +54,7 @@ model Event {
   location           String
   description        String
   limit              Int
-  booked             Int?
+  booked             Int
   is_free            Boolean?
   start_event        DateTime
   end_event          DateTime
@@ -67,6 +68,7 @@ model Event {
   reviews            Review[]
   discounts          Discount[]
   transactions       Transaction[]
+  Voucher            Voucher[]
 
   @@map("events")
 }
@@ -121,6 +123,7 @@ model RefferalHistory {
   @@map("refferal_history")
 }
 
+// 
 model Discount {
   id             Int      @id @default(autoincrement())
   total_discount Decimal  @db.Decimal(8, 2)
@@ -135,26 +138,43 @@ model Discount {
   @@map("discounts")
 }
 
+// from sistem
 model Reward {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @unique
-  user        User     @relation(fields: [userId], references: [id])
-  rewardTotal Int
-  isUsed      Boolean  @default(false)
-  expiredAt   DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  isUsed        Boolean  @default(false)
+  discount_rate Decimal  @db.Decimal(5, 2)
+  expiredAt     DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("rewards")
 }
 
+// from organizer
+model Voucher {
+  id      Int   @id @default(autoincrement())
+  eventId Int
+  event   Event @relation(fields: [eventId], references: [id])
+  userId  Int
+  user    User  @relation(fields: [userId], references: [id])
+  total   Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("vouchers")
+}
+
 model Transaction {
-  id          Int   @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   userId      Int
-  user        User  @relation(fields: [userId], references: [id])
+  user        User   @relation(fields: [userId], references: [id])
   eventId     Int
-  event       Event @relation(fields: [eventId], references: [id])
+  event       Event  @relation(fields: [eventId], references: [id])
   qty         Int
+  status      String
   total_price Int
   point_used  Int
 

@@ -68,10 +68,10 @@ export const registerService = async (body: IRegister) => {
         }
 
         const discountRate = 10;
-        await tx.refferalHistory.create({
+        await tx.reward.create({
           data: {
             userId: user.id,
-            discount_rate: discountRate / 100,
+            discount_rate: discountRate,
             expiredAt: pointExpiredDate,
           },
         });

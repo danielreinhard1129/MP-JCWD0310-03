@@ -5,6 +5,7 @@ import Pagination from "@/components/pagination/Pagination";
 import CardEvent from "@/components/card/CardEvent";
 import useGetEvents from "@/hooks/api/events/useGetPagination";
 import { useState } from "react";
+import { appConfig } from "@/utils/config";
 
 const PaginationPage = () => {
   const [page, setPage] = useState<number>(1);
@@ -18,13 +19,15 @@ const PaginationPage = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4 py-4">
       <Autocomplete />
       <section className="mx-auto grid w-full max-w-[95%] grid-cols-4">
         {events.map((event, index) => {
           return (
             <CardEvent
+              imageUrl={appConfig.baseUrl + `/assets${event.thumbnail}`}
               key={index}
+              eventId={event.id}
               title={event.title}
               location={event.location}
               start_event={event.start_event}

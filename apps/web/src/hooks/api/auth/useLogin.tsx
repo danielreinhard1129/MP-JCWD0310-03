@@ -10,7 +10,7 @@ export interface User {
   username: string;
   email: string;
   refferal: string;
-  role: string;
+  role?: string;
 }
 
 interface LoginArgs extends Omit<User, "id" | "username" | "refferal"> {
