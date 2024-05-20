@@ -9,6 +9,7 @@ export interface User {
   username: string;
   email: string;
   refferal: string;
+  role: string;
 }
 
 interface KeepLoginResponse {

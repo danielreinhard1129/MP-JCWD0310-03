@@ -55,6 +55,8 @@ export const registerService = async (body: IRegister) => {
         });
         console.log(refferalOwner);
 
+        if (!refferalOwner) throw new Error('Not found!');
+
         if (refferalOwner) {
           await tx.point.updateMany({
             where: { userId: refferalOwner.id },
@@ -71,7 +73,7 @@ export const registerService = async (body: IRegister) => {
         await tx.reward.create({
           data: {
             userId: user.id,
-            discount_rate: discountRate,
+            discount_rate: discountRate / 100,
             expiredAt: pointExpiredDate,
           },
         });

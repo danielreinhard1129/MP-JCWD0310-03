@@ -2,24 +2,18 @@
 
 import Dropzone from "@/components/event/Dropzone";
 import FormInput from "@/components/event/FormInput";
+import FormTextArea from "@/components/event/FormTextArea";
 import PreviewImages from "@/components/event/PreviewImages";
 import { Button } from "@/components/ui/button";
-import { useFormik } from "formik";
-import FormTextArea from "@/components/event/FormTextArea";
-import useCreateEvent from "@/hooks/api/events/useCreateEvent";
-import { IFormCreateEvent } from "@/types/event.type";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
-import { useState } from "react";
+import useCreateEvent from "@/hooks/api/events/useCreateEvent";
+import { RootState } from "@/redux/store";
+import { IFormCreateEvent } from "@/types/event.type";
+import { useFormik } from "formik";
+import { useSelector } from "react-redux";
 const Write = () => {
   const { createEvent } = useCreateEvent();
   const { id } = useSelector((state: RootState) => state.user);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleIsBoxChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsOpen(event.target.checked);
-  };
 
   const {
     handleSubmit,
@@ -92,7 +86,7 @@ const Write = () => {
               onBlur={handleBlur}
               onChange={handleChange}
               placeholder="Start Date"
-              type="date"
+              type="datetime-local"
               value={values.start_event}
             />
             <FormInput
@@ -103,7 +97,7 @@ const Write = () => {
               onBlur={handleBlur}
               onChange={handleChange}
               placeholder="End Date"
-              type="date"
+              type="datetime-local"
               value={values.end_event || 0}
             />
 
@@ -118,17 +112,6 @@ const Write = () => {
               type="text"
               value={values.category}
             />
-            {/* 
-            <Dropzone
-              isError={Boolean(errors.thumbnail)}
-              label="Thumbnail"
-              onDrop={(files) =>
-                setFieldValue("thumbnail", [
-                  ...values.thumbnail,
-                  ...files.map((file) => file),
-                ])
-              }
-            /> */}
 
             {/* DESCRIPTION INPUT */}
             <FormTextArea
@@ -166,19 +149,6 @@ const Write = () => {
               type="number"
               value={String(values.price)}
             />
-            <div>
-              <label htmlFor="">
-                <input
-                  type="checkbox"
-                  onChange={handleIsBoxChecked}
-                  checked={isOpen}
-                />
-                is it free?
-              </label>
-              {!isOpen && (
-                <div>Render something when the input isn't checked</div>
-              )}
-            </div>
 
             {/* PREVIEW IMAGE */}
             <PreviewImages

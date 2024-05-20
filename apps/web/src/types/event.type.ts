@@ -51,6 +51,7 @@ export interface IEvent {
   category: string;
 
   user: IUser;
+  reviews: Review[];
 }
 
 export interface IFormCreateEvent {
@@ -64,4 +65,12 @@ export interface IFormCreateEvent {
   price: number;
   userId: number;
   category: string;
+}
+
+interface Review {
+  id: number;
+  review: string;
+  rating: number;
+  userId: number;
+  eventId: number;
 }

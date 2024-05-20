@@ -1,52 +1,8 @@
 "use client";
-// import TableAdmin, { ApiResponse } from "@/components/table/TableAdmin";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-// const Transaction = () => {
-//   const [transactions, setTransactions] = useState<ApiResponse[]>([]);
-//   const { id } = useSelector((state: RootState) => state.user);
-//   const { transaction } = useGetTransaction(id);
-//   console.log(transaction);
-//   useEffect(() => {
-//     fetch(`http://localhost:8000/api/transactions/organizer/${id}`)
-//       .then((res) => res.json())
-//       .then((json) => {
-//         // console.log(json);
-//         setTransactions(json);
-//         // setTransactions(json.events);
-//         // setLoading(false);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching data:", error);
-//         // setLoading(false);
-//       });
-//   }, [id]);
-
-//   console.log("transss: ", transactions);
-
-//   return (
-//     <div>
-//       <section>
-//         {transactions.map((trans, idx) => {
-//         <TableAdmin
-//           return (
-//               key={idx}
-//               qty={trans.qty}
-//               pointUsed={trans.pointUsed}
-//               status={trans.status}
-//               approval_image=""
-//               total_price={trans.total_price}
-//             />
-//           );
-//         })}
-//       </section>
-//     </div>
-//   );
-// };
-
-// export default Transaction;
 import {
   Table,
   TableBody,
@@ -58,10 +14,10 @@ import {
 } from "@/components/ui/table";
 
 import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
+import useAcceptTransaction from "@/hooks/api/transactions/useApprovedTransaction";
 import { axiosInstance } from "@/lib/axios";
-import { Check, CircleX } from "lucide-react";
-import Link from "next/link";
 import { FC } from "react";
+import { Check, CircleX } from "lucide-react";
 
 export interface ApiResponse {
   id?: number;
@@ -87,6 +43,13 @@ interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+// export enum TransType {
+//   WAITING = "WAITING",
+//   PENDING = "PENDING",
+//   APPROVED = "APPROVED",
+//   REJECTED = "REJECTED",
+// }
 
 interface Event {
   id: number;
@@ -157,6 +120,8 @@ const TableAdmin: FC<ApiResponse> = ({
     updateTransactionStatus(transactionId, "REJECTED");
 
   console.log("transss: ", transactions);
+
+  const { accepting } = useAcceptTransaction();
   return (
     <div>
       <Table>
@@ -192,7 +157,11 @@ const TableAdmin: FC<ApiResponse> = ({
               </TableCell>
               <TableCell className="text-center">{trans.status}</TableCell>
               <TableCell className="flex gap-3 text-center">
-                <button onClick={handleApprove(Number(trans.id))}>
+                <button
+                  onClick={() => {
+                    accepting(Number(trans.id));
+                  }}
+                >
                   <Check />
                 </button>
                 <button onClick={handleReject(Number(trans.id))}>
@@ -204,6 +173,13 @@ const TableAdmin: FC<ApiResponse> = ({
           ))}
         </TableBody>
       </Table>
+      {/* <div>
+        <Pagination
+          total={meta?.total || 0}
+          take={meta?.take || 0}
+          onChangePage={handleChangePaginate}
+        />
+      </div> */}
     </div>
   );
 };

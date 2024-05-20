@@ -13,14 +13,6 @@ export const createEventService = async (
   try {
     const { title, userId, limit, booked } = body;
 
-    const existingTitle = await prisma.event.findFirst({
-      where: { title },
-    });
-
-    if (existingTitle) {
-      throw new Error('title already in use');
-    }
-
     const user = await prisma.user.findFirst({
       where: { id: Number(userId) },
     });

@@ -14,6 +14,8 @@ const PaginationPage = () => {
     take: 4,
   });
 
+  console.log(events);
+
   const handleChangePaginate = ({ selected }: { selected: number }) => {
     setPage(selected + 1);
   };
@@ -21,7 +23,7 @@ const PaginationPage = () => {
   return (
     <div className="container mx-auto px-4 py-4">
       <Autocomplete />
-      <section className="mx-auto grid w-full max-w-[95%] grid-cols-4">
+      <section className="mx-auto grid w-full gap-3 md:max-w-[95%] md:grid-cols-4 md:gap-4">
         {events.map((event, index) => {
           return (
             <CardEvent

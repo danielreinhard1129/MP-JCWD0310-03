@@ -11,7 +11,7 @@ const useRegister = () => {
   const register = async (payload: RegisterArgs) => {
     try {
       await axiosInstance.post("/auth/admin/register", payload);
-      router.push("/");
+      router.push("/admin/login");
     } catch (error) {
       if (error instanceof AxiosError) {
         alert(error.message);

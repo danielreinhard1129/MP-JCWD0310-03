@@ -1,15 +1,16 @@
-import { BarChartComponent } from "@/components/charts/BarChart";
-import LineChartComponent from "@/components/charts/LineChart";
+"use client";
+import ChartByMonth from "@/components/charts/ByMonth";
+import ChartByYear from "@/components/charts/ByYear";
 import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
 import React from "react";
 
-const Statistics = () => {
+const Statistic = () => {
   return (
-    <div>
-      {/* <BarChartComponent /> */}
-      <LineChartComponent />
+    <div className="flex flex-col gap-5">
+      <ChartByMonth />
+      <ChartByYear />
     </div>
   );
 };
 
-export default AuthGuardOrganizer(Statistics);
+export default AuthGuardOrganizer(Statistic);

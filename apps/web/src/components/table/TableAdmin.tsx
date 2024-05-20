@@ -20,8 +20,8 @@ export interface ApiResponse {
   total_price: number;
   pointUsed: number;
   approval_image: string;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
   user?: User;
   event?: Event;
 }
