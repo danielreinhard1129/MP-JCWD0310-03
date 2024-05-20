@@ -26,7 +26,7 @@ const ListEvents = () => {
   }
 
   return (
-    <div className="container  grid grid-cols-1 gap-5 px-4 py-4 md:grid-cols-4">
+    <div className="container grid grid-cols-1 gap-5 px-4 py-4 md:grid-cols-4">
       {events.map((event, index) => (
         // <div key={event.id}>
         <CardEvent
