@@ -1,3 +1,4 @@
+import ReviewCard from "@/components/card/ReviewCard";
 import CityList from "@/components/city/CityList";
 import EventCarousel from "@/components/event/EventCarousel";
 import ListEvent from "@/components/event/ListEvent";
@@ -14,6 +15,7 @@ export default function Home() {
       <MarqueeEvent />
       <ListEvent />
       {/* <CityList /> */}
+      
     </div>
   );
 }
