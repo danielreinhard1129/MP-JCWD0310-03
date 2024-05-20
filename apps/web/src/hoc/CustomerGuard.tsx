@@ -1,6 +1,5 @@
 "use client";
 
-import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";

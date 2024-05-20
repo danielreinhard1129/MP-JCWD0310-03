@@ -8,6 +8,7 @@ export const getEventService = async (id: number) => {
       },
       include: {
         user: true,
+        reviews: true,
       },
     });
     if (!event) throw new Error(`Event with id ${id} not found`);

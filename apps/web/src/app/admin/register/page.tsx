@@ -75,7 +75,7 @@ const Register = () => {
             <label className="input input-bordered flex h-[40px] items-center gap-2 rounded-lg">
               <Key color="gray" size={20} />
               <input
-                type="text"
+                type="password"
                 className="grow"
                 placeholder="Password"
                 name="password"

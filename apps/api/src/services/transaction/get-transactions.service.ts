@@ -1,4 +1,6 @@
 import prisma from '@/prisma';
+import { PaginationQueryParams } from '@/types/pagination.type';
+import { Prisma } from '@prisma/client';
 
 export const getTransactionsService = async (id: number) => {
   try {

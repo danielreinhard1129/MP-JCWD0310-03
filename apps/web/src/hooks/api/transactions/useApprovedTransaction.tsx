@@ -11,9 +11,9 @@ interface AcceptTransactionArgs {
 
 const useAcceptTransaction = () => {
   const router = useRouter();
-  const accepting = async (payload: AcceptTransactionArgs) => {
+  const accepting = async (payload: any) => {
     try {
-      await axiosInstance.post("/transaction/accepting", payload);
+      await axiosInstance.post("/transactions/accepting", payload);
 
       location.reload();
     } catch (error) {

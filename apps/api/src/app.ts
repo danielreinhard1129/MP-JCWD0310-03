@@ -15,7 +15,7 @@ import { join } from 'path';
 import { EventRouter } from './routers/events.router';
 import { AuthAdminRouter } from './routers/auth-admin.router';
 import { TransactionRouter } from './routers/transaction.router';
-import { ReviewRatingRouter } from './routers/review.router';
+import { ReviewRatingRouter } from './routers/reviews.router';
 
 export default class App {
   private app: Express;
@@ -70,7 +70,7 @@ export default class App {
     this.app.use('/api/auth/admin', authAdminRouter.getRouter());
     this.app.use('/api/events', eventRouter.getRouter());
     this.app.use('/api/transactions', transactionRouter.getRouter());
-    this.app.use('/api/review', reviewRouter.getRouter());
+    this.app.use('/api/reviews', reviewRouter.getRouter());
   }
 
   public start(): void {

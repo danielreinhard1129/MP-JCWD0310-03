@@ -1,8 +1,7 @@
-import { createReviewRatingService } from '@/services/review/create-review.service';
-import { getReviewRatings } from '@/services/review/get-reviews.service';
-import { getReviewRatingById } from '@/services/review/get-reviewById.service';
+import { getReviewRatings } from '@/services/reviews/get-reviews.service';
+import { createReviewService } from '@/services/reviews/create-review.service';
+import { getReviewRatingByIdService } from '@/services/reviews/get-reviewById.service';
 import { NextFunction, Request, Response } from 'express';
-
 
 export class ReviewRatingController {
   async createReviewRatingController(
@@ -11,13 +10,12 @@ export class ReviewRatingController {
     next: NextFunction,
   ) {
     try {
-      const result = await createReviewRatingService(req.body);
+      const result = await createReviewService(req.body);
       res.status(200).send(result);
     } catch (error) {
       next(error);
     }
   }
-
 
   async getReviewRatingByIdController(
     req: Request,
@@ -25,25 +23,25 @@ export class ReviewRatingController {
     next: NextFunction,
   ) {
     try {
-        const  id  = req.params.id
-      const result = await getReviewRatingById(Number(id));
+      const id = req.params.id;
+      const result = await getReviewRatingByIdService(Number(id));
       res.status(200).send(result);
     } catch (error) {
       next(error);
-    }
-  }
+    }
+  }
 
-async getReviewRatingController(
-  req: Request,
+  async getReviewRatingController(
+    req: Request,
     res: Response,
     next: NextFunction,
   ) {
     try {
-      const result = await getReviewRatings();
-      return res.status(200).send(result)
+      const id = req.params.id;
+      const result = await getReviewRatings(Number(id));
+      return res.status(200).send(result);
     } catch (error) {
       next(error);
-    }
-  }
-
+    }
+  }
 }

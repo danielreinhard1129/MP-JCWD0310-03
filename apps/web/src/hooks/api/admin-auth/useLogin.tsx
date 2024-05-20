@@ -10,7 +10,7 @@ export interface User {
   username: string;
   email: string;
   refferal: string;
-  role?: string;
+  role: string;
 }
 
 interface LoginArgs
@@ -36,7 +36,7 @@ const useLogin = () => {
 
       dispatch(loginAction(data.data));
       localStorage.setItem("token", data.token);
-      router.replace("/");
+      router.replace("/admin/dashboard");
     } catch (error) {
       if (error instanceof AxiosError) {
         alert(error?.response?.data); // alert bisa diganti toast

@@ -1,5 +1,4 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
 import { RootState } from "@/redux/store";
 import Link from "next/link";

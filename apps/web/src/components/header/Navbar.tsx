@@ -59,11 +59,16 @@ const Navbar = () => {
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuLabel>{username}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>{username}</DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>Team</DropdownMenuItem>
+                    <DropdownMenuItem></DropdownMenuItem>
+                    <Link href={`/admin/dashboard`}>
+                      <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                    </Link>
+                    <Link href={`/pagination`}>
+                      <DropdownMenuItem>Explore</DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem></DropdownMenuItem>
                     <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

@@ -16,13 +16,13 @@ export class TransactionRouter {
       '/',
       this.transactionController.createTransactionController,
     );
-    this.router.put(
-      '/reject/:id',
-      this.transactionController.updateStatusRejectedController,
+    this.router.get(
+      '/organizer',
+      this.transactionController.getTransactionssController,
     );
-    this.router.put(
-      '/approve/:id',
-      this.transactionController.updateStatusApprovedController,
+    this.router.post(
+      '/accepting',
+      this.transactionController.getAcceptController,
     );
     this.router.get(
       '/organizer/:id',
