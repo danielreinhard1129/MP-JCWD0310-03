@@ -4,6 +4,7 @@ import { loginAction } from "@/redux/slices/userSlice";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 export interface User {
   id: number;
@@ -34,12 +35,14 @@ const useLogin = () => {
         payload,
       );
 
+      toast.success("Login success");
       dispatch(loginAction(data.data));
       localStorage.setItem("token", data.token);
       router.replace("/");
     } catch (error) {
       if (error instanceof AxiosError) {
-        alert(error?.response?.data); // alert bisa diganti toast
+        toast.error("Login failed!");
+        console.log(error?.response?.data); // alert bisa diganti toast
       }
     }
   };
