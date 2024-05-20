@@ -16,6 +16,6 @@ export const createReviewService = async (body: CreateReviewRatingBody) => {
       },
     });
   } catch (error) {
-    throw new Error();
+    throw error;
   }
 };
