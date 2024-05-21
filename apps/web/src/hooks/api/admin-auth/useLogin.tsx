@@ -4,6 +4,7 @@ import { loginAction } from "@/redux/slices/userSlice";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 export interface User {
   id: number;
@@ -33,13 +34,14 @@ const useLogin = () => {
         "/auth/admin/login",
         payload,
       );
-
+      toast.success("login as admin success");
       dispatch(loginAction(data.data));
       localStorage.setItem("token", data.token);
       router.replace("/admin/dashboard");
     } catch (error) {
       if (error instanceof AxiosError) {
-        alert(error?.response?.data); // alert bisa diganti toast
+        // alert(error?.response?.data); // alert bisa diganti toast
+        toast.error("login as admin error");
       }
     }
   };

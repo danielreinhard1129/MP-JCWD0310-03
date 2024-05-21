@@ -18,8 +18,6 @@ const Login = () => {
         login(values);
       } catch (error) {
         console.error("Registration error:", error);
-      } finally {
-        alert("Sukses login");
       }
     },
   });
