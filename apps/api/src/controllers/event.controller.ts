@@ -4,6 +4,7 @@ import { getEventService } from '@/services/events/get-event.service';
 import { getEventsByOrgService } from '@/services/events/get-events-byOrg.service';
 import { getEventsService } from '@/services/events/get-events.service';
 import { NextFunction, Request, Response } from 'express';
+import { createPromotionService } from '@/services/events/create-promotion.service'
 
 export class EventController {
   async createEventController(req: Request, res: Response, next: NextFunction) {
@@ -78,4 +79,6 @@ export class EventController {
       next(error);
     }
   }
+
+  
 }

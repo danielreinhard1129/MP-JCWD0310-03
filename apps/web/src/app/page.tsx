@@ -1,10 +1,10 @@
 import EventCarousel from "@/components/event/EventCarousel";
+import FormPromotion from "@/components/event/FormPromotion";
 import ListEvent from "@/components/event/ListEvent";
 import MarqueeEvent from "@/components/event/MarqueeEvent";
 import HeroSection from "@/components/hero/HeroSection";
 import AutoComplete from "@/components/pagination/AutoComplete";
-import FormReviews from "@/components/reviews/FormReviews";
-import ReviewCard from "@/components/reviews/ReviewsCard";
+import TransactionDetail from "@/components/transaction/TransactionDetail";
 
 export default function Home() {
   return (
@@ -15,6 +15,7 @@ export default function Home() {
       <MarqueeEvent />
       <ListEvent />
       {/* <CityList /> */}
+      <TransactionDetail/>
     </div>
   );
 }

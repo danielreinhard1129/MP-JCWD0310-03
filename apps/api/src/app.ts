@@ -16,6 +16,7 @@ import { EventRouter } from './routers/events.router';
 import { AuthAdminRouter } from './routers/auth-admin.router';
 import { TransactionRouter } from './routers/transaction.router';
 import { ReviewRatingRouter } from './routers/reviews.router';
+import { PromotionRouter } from './routers/promotion.router';
 
 export default class App {
   private app: Express;
@@ -64,6 +65,8 @@ export default class App {
     const authAdminRouter = new AuthAdminRouter();
     const transactionRouter = new TransactionRouter();
     const reviewRouter = new ReviewRatingRouter();
+    const promotionRouter = new PromotionRouter();
+  
 
     this.app.use('/api/samples', sampleRouter.getRouter());
     this.app.use('/api/auth', authRouter.getRouter());
@@ -71,6 +74,7 @@ export default class App {
     this.app.use('/api/events', eventRouter.getRouter());
     this.app.use('/api/transactions', transactionRouter.getRouter());
     this.app.use('/api/reviews', reviewRouter.getRouter());
+    this.app.use('/api/promotion', promotionRouter.getRouter());
   }
 
   public start(): void {
