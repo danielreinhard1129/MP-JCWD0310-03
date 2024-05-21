@@ -8,13 +8,13 @@ export const acceptTransactionService = async (
     const { id } = body;
 
     //add referred
-    const existingTrasaction = await prisma.transaction.findFirst({
-      where: { id: id },
-      select: { status: true },
-    });
+    // const existingTrasaction = await prisma.transaction.findFirst({
+    //   where: { id: Number(id) },
+    //   select: { status: true },
+    // });
 
     return await prisma.transaction.update({
-      where: { id: id },
+      where: { id: Number(id) },
       data: { status: 'APPROVED' },
     });
   } catch (error) {

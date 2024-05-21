@@ -1,5 +1,8 @@
 import { acceptTransactionService } from '@/services/transaction/accept-transaction.service';
 import { createTransactionService } from '@/services/transaction/create-transaction.service';
+import { getAttendeeListService } from '@/services/transaction/get-attendee-list.service';
+import { getStatusApprovedService } from '@/services/transaction/get-status-approved.service';
+import { getStatusRejectedService } from '@/services/transaction/get-status-rejected.service';
 import { getTransactionByIdService } from '@/services/transaction/get-transaction-byId.service';
 import { getTransactionsService } from '@/services/transaction/get-transactions.service';
 import { updateStatusApprovedService } from '@/services/transaction/update-status-approved.service';
@@ -68,10 +71,16 @@ export class TransactionController {
     }
   }
 
-  async getAcceptController(req: Request, res: Response, next: NextFunction) {
+  async updateAcceptController(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
-      const result = await acceptTransactionService(req.body);
-      res.status(200).send(result);
+      console.log(req.body);
+
+      // const result = await acceptTransactionService(req.body);
+      res.status(200).send(req.body);
     } catch (error) {
       next(error);
     }
@@ -94,6 +103,61 @@ export class TransactionController {
       };
       const result = await getTransactionsService(Number(query));
 
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getAttendeeListController(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const query = {
+        eventId: parseInt(req.params.id as string),
+        take: parseInt(req.query.take as string) || 10,
+        page: parseInt(req.query.page as string) || 1,
+        sortBy: (req.query.sortBy as string) || 'createdAt',
+        sortOrder: (req.query.sortOrder as string) || 'desc',
+      };
+
+      const result = await getAttendeeListService(query);
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getApprovedStatus(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query = {
+        page: parseInt(req.query.page as string) || 1,
+        sortBy: (req.query.sortBy as string) || 'createdAt',
+        sortOrder: (req.query.sortOrder as string) || 'desc',
+        take: parseInt(req.query.take as string) || 10,
+        userId: parseInt(req.params.id),
+      };
+
+      const result = await getStatusApprovedService(query);
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getRejectedStatus(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query = {
+        page: parseInt(req.query.page as string) || 1,
+        sortBy: (req.query.sortBy as string) || 'createdAt',
+        sortOrder: (req.query.sortOrder as string) || 'desc',
+        take: parseInt(req.query.take as string) || 10,
+        userId: parseInt(req.params.id),
+      };
+
+      const result = await getStatusRejectedService(query);
       return res.status(200).send(result);
     } catch (error) {
       next(error);

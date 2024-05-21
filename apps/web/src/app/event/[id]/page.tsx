@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import AuthGuardOrganizer from "@/hoc/OrganizerGuard";
 import useGetEvent from "@/hooks/api/events/useGetEvent";
+import useGetPoint from "@/hooks/api/point/useGetPoint";
 import { axiosInstance } from "@/lib/axios";
 import { RootState } from "@/redux/store";
 import { IFormTransaction } from "@/types/transaction.type";
@@ -17,7 +18,10 @@ import { useSelector } from "react-redux";
 
 const EventDetail = ({ params }: { params: { id: string } }) => {
   const { event, loading } = useGetEvent(Number(params.id));
+  const { data } = useGetPoint();
   const { id, role } = useSelector((state: RootState) => state.user);
+
+  console.log("USER POINT: ", data[0].total);
 
   const router = useRouter();
 
@@ -46,8 +50,6 @@ const EventDetail = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  const { toast } = useToast();
-
   const startEventDate = event?.start_event
     ? typeof event.start_event === "string"
       ? parseISO(event.start_event)
@@ -63,7 +65,7 @@ const EventDetail = ({ params }: { params: { id: string } }) => {
           eventId: event?.id,
           qty,
           total_price: totalPrice,
-          point_used: 0,
+          point_used: data[0].total,
           approval_image: "",
         },
       );
@@ -135,6 +137,8 @@ const EventDetail = ({ params }: { params: { id: string } }) => {
                 -
               </button>
               <h1>Total price: {formatRupiah(totalPrice)}</h1>
+              <h1>Total point: {formatRupiah(data[0].total)}</h1>
+              <h1>Final price: {Number(totalPrice) - Number(data[0].total)}</h1>
             </div>
           ) : null}
           {role !== "ORGANIZER" ? (

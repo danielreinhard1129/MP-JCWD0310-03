@@ -4,7 +4,10 @@ export const getUserPoint = async (id: number) => {
   try {
     const userPoint = await prisma.point.findMany({
       where: {
-        userId: id,
+        id: id,
+      },
+      include: {
+        user: true,
       },
     });
     if (!userPoint) throw new Error('User has no point!');

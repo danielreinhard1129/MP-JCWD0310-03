@@ -1,3 +1,6 @@
+import { IEvent } from "./event.type";
+import { IUser } from "./user.type";
+
 export interface Transaction {
   id: number;
   userId: number;
@@ -19,4 +22,14 @@ export interface IFormTransaction {
   qty: number;
   status: string;
   approval_image: string;
+}
+
+export interface IEventParticipant {
+  id: number;
+  userId: number;
+  eventId: number;
+  user: IUser;
+  event: IEvent;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -20,13 +20,29 @@ export class TransactionRouter {
       '/organizer',
       this.transactionController.getTransactionssController,
     );
-    this.router.post(
+    this.router.patch(
       '/accepting',
-      this.transactionController.getAcceptController,
+      this.transactionController.updateAcceptController,
+    );
+    // this.router.post(
+    //   '/rejecting',
+    //   this.transactionController.getAcceptController,
+    // );
+    this.router.get(
+      '/status/approved/:id',
+      this.transactionController.getApprovedStatus,
+    );
+    this.router.get(
+      '/status/rejected/:id',
+      this.transactionController.getRejectedStatus,
     );
     this.router.get(
       '/organizer/:id',
       this.transactionController.getTransactionsController,
+    );
+    this.router.get(
+      '/event/attendees-list/:id',
+      this.transactionController.getAttendeeListController,
     );
     this.router.get(
       '/:id',

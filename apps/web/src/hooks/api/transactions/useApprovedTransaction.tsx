@@ -6,25 +6,17 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 interface AcceptTransactionArgs {
-  id: number;
+  id?: number;
 }
 
 const useAcceptTransaction = () => {
   const router = useRouter();
-  const accepting = async (payload: any) => {
+  const accepting = async (payload: AcceptTransactionArgs) => {
     try {
-      await axiosInstance.post("/transactions/accepting", payload);
-
-      location.reload();
+      await axiosInstance.patch("/transactions/accepting", payload);
+      router.refresh();
     } catch (error) {
       if (error instanceof AxiosError) {
-        // toast({
-        //   className: cn(
-        //     "top-0 right-0 flex fixed md:max-w-[420px] md:top-16 md:right-4 border-mythemes-darkpink text-mythemes-darkpink",
-        //   ),
-        //   variant: "default",
-        //   title: error?.response?.data,
-        // });
         console.log(error);
       }
     }

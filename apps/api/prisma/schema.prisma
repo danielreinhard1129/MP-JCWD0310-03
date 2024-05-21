@@ -174,7 +174,7 @@ model Transaction {
   eventId     Int
   event       Event  @relation(fields: [eventId], references: [id])
   qty         Int
-  status      String
+  status      String @default("PENDING")
   total_price Int
   point_used  Int
 
