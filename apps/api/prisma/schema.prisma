@@ -154,15 +154,15 @@ model Reward {
 
 // from organizer
 model Voucher {
-  id      Int   @id @default(autoincrement())
-  eventId Int
-  event   Event @relation(fields: [eventId], references: [id])
-  userId  Int
-  user    User  @relation(fields: [userId], references: [id])
-  total   Int
+  id         Int      @id @default(autoincrement())
+  eventId    Int
+  event      Event    @relation(fields: [eventId], references: [id])
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  total      Int
+  expiredAt  DateTime
+  limit      Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@map("vouchers")
 }

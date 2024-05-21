@@ -1,4 +1,6 @@
 "use client";
+import FormReviews from "@/components/reviews/FormReviews";
+import ReviewCard from "@/components/reviews/ReviewsCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -177,10 +179,8 @@ const EventDetail = ({ params }: { params: { id: string } }) => {
         {/* <p>{event?.reviews[0]?.user?.username || "no user found"}</p> */}
       </div>
 
-      <div className="mt-5">
-        <h1>Reviews</h1>
-        <p>{event?.reviews[0]?.review || "No comment"}</p>
-      </div>
+     <ReviewCard/>
+     <FormReviews/>
     </div>
   );
 };
