@@ -17,7 +17,7 @@ export class ReviewRatingRouter {
       this.reviewRatingController.createReviewRatingController,
     );
     this.router.get(
-      '/:id',
+      '/',
       this.reviewRatingController.getReviewRatingController,
     );
     this.router.get(
