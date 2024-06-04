@@ -50,7 +50,7 @@ const Write = () => {
     <main className="container mx-auto my-3 px-4">
       <h1 className="mb-10 text-center text-lg font-bold">Create Event</h1>
       <form onSubmit={handleSubmit}>
-        <div className="mx-auto flex grid max-w-[70%] flex-col gap-4 space-y-1.5 md:grid-cols-2">
+        <div className="mx-auto flex md:grid max-w-[70%] flex-col gap-4 space-y-1.5 md:grid-cols-2">
           {/* TITLE INPUT */}
           <div className="space-y-5">
             <FormInput

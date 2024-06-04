@@ -1,6 +1,7 @@
 "use client";
 import FormReviews from "@/components/reviews/FormReviews";
 import ReviewCard from "@/components/reviews/ReviewsCard";
+import TransactionDetail from "@/components/transaction/page";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -13,6 +14,7 @@ import { appConfig } from "@/utils/config";
 import { format, isValid, parseISO } from "date-fns";
 import { CalendarDays, LocateIcon, Timer } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -142,7 +144,7 @@ const EventDetail = ({ params }: { params: { id: string } }) => {
           {role !== "ORGANIZER" ? (
             <Button
               className="hidden w-full border border-black bg-white px-2 text-[#393e41] hover:bg-[#e94f37] hover:text-white md:block"
-              onClick={handleBuyTicket}
+              onClick={()=>router.replace("/transaction")}
             >
               Buy Ticket
             </Button>
@@ -169,9 +171,16 @@ const EventDetail = ({ params }: { params: { id: string } }) => {
                 {formatRupiah(event?.price)}
               </h1>
             </div>
-            <Button className="w-[60%] border border-black bg-white px-2 text-[#393e41] hover:bg-[#e94f37] hover:text-white">
-              Buy Ticket
-            </Button>
+            <div>
+              <Button
+                className="w-[60%] border border-black bg-white px-2 text-[#393e41] hover:bg-[#e94f37] hover:text-white"
+                onClick={() => {
+                  router.replace("/transaction");
+                }}
+              >
+                Buy Ticket
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -179,8 +188,8 @@ const EventDetail = ({ params }: { params: { id: string } }) => {
         {/* <p>{event?.reviews[0]?.user?.username || "no user found"}</p> */}
       </div>
 
-     <ReviewCard/>
-     <FormReviews/>
+      <ReviewCard />
+      <FormReviews />
     </div>
   );
 };
